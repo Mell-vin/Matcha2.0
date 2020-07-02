@@ -1,0 +1,58 @@
+.container {
+    display: grid;
+    margin-top: 2vh;
+    border-radius: 2vh;
+    border: 1vh solid white;
+    height: auto;
+    min-width: 15vw;
+    width: fit-content;
+}
+
+.buttonId {
+    background-color: black;
+    color: white;
+    width: fit-content;
+    font-weight: bold;
+    font-size: 2.5vw;
+    height: fit-content;
+    border-radius: 2vh;
+    margin-top: 2vh;
+    margin-left: 2vh;
+}
+
+.SubId {
+    background-color: black;
+    color: white;
+    width: fit-content;
+    font-weight: bold;
+    font-size: 2.5vw;
+    height: fit-content;
+    border-radius: 2vh;
+    margin-top: 2vh;
+}
+
+.formField {
+    font-size: 2vh;
+    color: white;
+    margin-bottom: 3vh;
+    margin-right: 80%;
+    text-align: left;
+}
+
+.LoginWarning {
+    color: rgb(146, 23, 23);
+    font-size: 3vh;
+    font-weight: bold;
+    text-shadow: 1px 1px 7px rgb(93, 88, 88);
+}
+
+.SignUpWarning {
+    color: rgb(146, 23, 23);
+    font-size: 2vh;
+    font-weight: bold;
+    text-shadow: 1px 1px 7px rgb(121, 111, 111);
+}
+
+.formClass{
+    margin-left: 0px;
+}

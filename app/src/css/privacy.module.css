@@ -1,0 +1,28 @@
+.container {
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    height: auto;
+    width: 95%;
+
+}
+
+.left {
+    border-right: .2vh solid white;
+}
+
+.right {
+    border-right: .2vh solid white;
+}
+#general {
+    border-bottom: .2vh solid white;
+    border-top: .2vh solid white;
+    margin: 1px;
+}
+
+#general:hover {
+    color: black;
+    background-color: white;
+    text-shadow: 1px 1px 5px rgb(92, 88, 88);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+
+}

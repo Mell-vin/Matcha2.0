@@ -1,0 +1,29 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: .5vw;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    margin-top: 2vh;
+    border-top: .2vh solid white;
+}
+
+.item1 {
+    overflow-y: scroll;
+    height: 45vh;
+    border-top: .2vh solid white;
+}
+
+.consInfo {
+    margin: auto;
+    font-size: 3vh;
+    color: white;
+    text-align: center;
+    text-shadow: none;
+}
+
+.consDiv {
+    display: grid;
+    grid-template-rows: .8fr 9fr;
+}

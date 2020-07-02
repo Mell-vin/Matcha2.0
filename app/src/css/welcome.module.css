@@ -1,0 +1,24 @@
+.container {
+    display: grid;
+    grid-template-rows: 3fr 7fr;
+    height: fit-content;
+    width: 70vw;
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 8px 8px 16px  rgba(255, 255, 255, 0.671), 0 6px 20px 0 rgb(216, 35, 35);
+    background-color: black;
+    border: 1vh solid white;
+    border-radius: 2vh;
+}
+
+.welcome {
+    font-size: 3vw;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 14px rgb(119, 117, 117);
+}
+
+#buttHolder {
+    padding-left: 35%;
+}

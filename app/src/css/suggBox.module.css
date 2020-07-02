@@ -1,0 +1,106 @@
+.container {
+    
+    border: .5vh solid black;
+    height: auto;
+    min-height: 220px;
+    background-color: rgb(15, 15, 15);
+    width: 35vw;
+    padding: 2vh;
+    min-width: 180px;
+    margin: auto;
+    margin-top: 5vh;
+    border-radius: 1vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgb(255, 255, 255);
+}
+
+.inner {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: auto;
+}
+
+.lower {
+    display: grid;
+    margin-top: 3vh;
+    grid-template-columns: 40% 40%;
+    grid-column-gap: 20%;
+    grid-template-rows: auto;
+    height: 10vh;
+    border-radius: 2vh;
+    background-color: black;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(63, 29, 29);
+}
+
+.pButtonLike {
+    border: .2vh solid white;
+    text-align: center;
+    padding-top: 5%;
+    background-color: black;
+    font-size: 2.5vh;
+    color: white;
+    border-radius: 1.6vh;
+}
+
+.pButtonLike:hover {
+    background-color: rgb(7, 158, 15);
+    border: .4vh solid rgb(7, 158, 15);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(63, 29, 29);
+    font-size: 2.8vh;
+    text-shadow: 2px 2px 6px white;
+    color: rgb(77, 76, 76);
+}
+
+.pButtonNope {
+    border: .2vh solid white;
+    text-align: center;
+    padding-top: 5%;
+    background-color: black;
+    font-size: 2.5vh;
+    color: white;
+    border-radius: 1.6vh;
+}
+
+.pButtonNope:hover {
+    background-color: rgb(116, 10, 6);
+    border: .4vh solid rgb(116, 10, 10);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(63, 29, 29);
+    font-size: 2.8vh;
+    text-shadow: 2px 2px 6px white;
+    color: rgb(34, 33, 33);
+}
+
+.likeButt {
+    height: 10px;
+    width: 20px;
+}
+.nope {
+    height: 20px;
+    width: 20px;
+    transform: rotate(180deg);
+}
+#Larrows {
+    border: .2vh solid white;
+    width: auto;
+    text-align: center;
+    font-size: auto;
+    min-height: auto;
+    min-width: auto;
+    margin-top: 25vh;
+    height: auto;
+    border-radius: 1vh;
+    font-size: 3vh;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(63, 29, 29);
+    color: white;
+    background-color: black;
+}
+
+#Larrows:hover {
+    background-color: rgb(3, 3, 3);
+    color: rgb(241, 239, 239);
+    border-radius: 2vh;
+}
+
+#sideDivs {
+    width: auto;
+    height: auto;
+}

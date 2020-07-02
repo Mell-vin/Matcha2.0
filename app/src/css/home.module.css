@@ -1,0 +1,83 @@
+.container {
+    display: grid;
+    grid-template-columns: auto 70vw;
+    grid-template-rows: 1fr 9fr;
+    margin-top: 4vh;
+    height: 90vh;
+    border-top: .2vh solid white;
+    border-bottom: .2vh solid white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgb(255, 255, 255);
+}
+
+.item1 {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 100%;
+    height: 10vh;
+}
+
+.item2 {
+    border: .2vh solid white;
+    background-color: black;
+}
+
+.suggText {
+    text-align: center;
+    width: 100%;
+    background-color: black;
+    border-radius: 2vh;
+    height: 100%;
+    font-size: 5vh;
+    color: white;
+    text-shadow: 1px 1px 5px white;
+}
+
+.suggText:hover {
+    text-align: center;
+    color: black;
+    border-radius: 2vh;
+    background-color: white;
+    text-shadow: 1px 1px 8px rgb(0, 0, 0);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+}
+
+.item3 {
+    border: .2vh solid white;
+    background-color: black;
+}
+
+.item4 {
+    border: .2vh solid white;
+    background-color: black;
+}
+
+.item5 {
+    border: .2vh solid white;
+    background-color: black;
+}
+
+.item6 {
+    border-left: .2vh solid black;
+    background-color: black;
+    font-size: 4vh;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+    text-shadow: 1px 1px 5px white;
+    color: white;
+    text-decoration: white;
+    padding-top: 1vh;
+}
+
+.item6:hover {
+    color: black;
+    background-color: white;
+    text-shadow: 4px 4px 5px grey;
+    border: .3vh solid black;
+}
+
+.proPic {
+    height: 5vh;
+    width: 3vw;
+    margin-left: 1vw;
+}

@@ -1,0 +1,83 @@
+.container {
+    display: grid;
+    grid-template-rows: 2fr 8fr;
+    border: .2vh solid white;
+    height: 90vh;
+    margin: auto;
+    margin-top: 2vh;
+    width: 80vw;
+    border-radius: 2vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgb(255, 255, 255);
+}
+
+.TopDiv {
+    font-size: 10vh;
+    text-align: center;
+    width: 100%;
+    border-radius: 2vh;
+    background-color: black;
+    padding: auto;
+    text-shadow: 3px 3px 7px  rgb(255, 255, 255);
+    color: white;
+}
+
+.TopDiv:hover {
+    color: black;
+    border-radius: 2vh;
+    background-color: white;
+    text-shadow: 1px 1px 8px rgb(0, 0, 0);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+}
+
+.searchTopic {
+    text-align: center;
+    font-size: 3vh;
+    text-shadow: 3px 3px 7px  rgb(255, 255, 255);
+    color: white;
+}
+
+.BottomDiv {
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    font-size: 10vh;
+    text-align: center;
+    padding: auto;
+    text-shadow: 3px 3px 7px  rgb(255, 255, 255);
+    color: white;
+}
+
+#SearchItems {
+    border-right: .2vh solid white;
+    border-radius: 2vh;
+}
+
+#SearchItemsRight {
+    border-left: .4vh solid white;
+    border-right: .4vh solid white;
+    border-radius: 2vh;
+    font-size: 3vh;
+    color: white;
+    background-color: rgb(26, 26, 26);
+}
+
+.BottomLeft {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    font-size: 3vh;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.radio {
+    margin: 3vw;
+}
+.BottomRight {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    font-size: 3vh;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.BottomLeft > div {
+}

@@ -1,0 +1,45 @@
+.container {
+    background-color: black;
+    height: 37vh;
+    min-height: 190px;
+    width: 20vw;
+    min-width: 110px;
+    margin: auto;
+    margin-top: 8vh;
+    position: relative;
+    text-align: center;
+    border-radius: 1vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgb(63, 29, 29);
+}
+
+.container:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgb(206, 27, 27);
+}
+
+img {
+    height: 35vh;
+    min-height: 180px;
+    width: 20vw;
+    min-width: 110px;
+    margin-top: 1vh;
+    border-radius: 1vh;
+}
+
+p {
+    margin: 0;
+}
+.bioText {
+    position: absolute;
+    font-size: 2vh;
+    color: black;
+    text-shadow: 1px 1px 0px grey;
+    bottom: 2.5vh;
+    left: 1.5vh;
+}
+
+.bioText2 {
+    font-size: 2vh;
+    text-align: left;
+    color: black;
+    text-shadow: 2px 2px 2px rgb(58, 58, 58);
+}

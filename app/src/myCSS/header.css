@@ -1,0 +1,33 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    color: white;
+    width: 100vw;
+    margin-top: 1vh;
+    margin-left: 0;
+    height: 4vh;
+    box-shadow: 5px 7px 20px rgb(255, 255, 255), -5px -7px 20px 0 rgb(216, 211, 211);
+}
+
+.welcome {
+    font-size: 2vw;
+    font-weight: bold;
+    color: white;
+}
+
+.butt {
+    background-color: black;
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+    width: 100%;
+    box-shadow: 5px 7px 20px rgb(255, 255, 255);
+}
+
+.butt:hover {
+    color: black;
+    background-color: white;
+    text-shadow: 1px 1px 10px rgb(0, 0, 0);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+}

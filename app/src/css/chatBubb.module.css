@@ -1,0 +1,26 @@
+.talkBubble {
+	margin: 4px;
+  display: inline-block;
+  position: relative;
+    width: 98%;
+    border: .2vh solid #86A3C3;
+    border-radius: 2vh;
+	height: auto;
+	background-color: black;
+}
+
+.talktextMe{
+    padding: 1em;
+    border: .5vh solid rgb(8, 33, 255);
+    border-radius: 2vh;
+      text-align: left;
+    line-height: 1.5em;
+  }
+
+.talktextYou{
+    padding: 1em;
+    border: .5vh solid rgb(255, 8, 8);
+    border-radius: 2vh;
+      text-align: left;
+    line-height: 1.5em;
+  }

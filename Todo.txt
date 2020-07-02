@@ -1,0 +1,4 @@
+- email verification
+- notification function & page
+- all location shit
+- advanced search page.

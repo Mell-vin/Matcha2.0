@@ -1,0 +1,80 @@
+.container {
+    display: grid;
+    border-radius: 2vh;
+    border: .5vh solid white;
+    width: 40vw;
+    background-color: rgb(19, 19, 19);
+    margin: auto;
+    margin-top: 5vh;
+    padding-bottom: 1vh;
+    min-height: 110px;
+    height: fit-content;
+    grid-template-columns: 1fr;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+}
+
+.noteContainer {
+    display: grid;
+    width: 90%;
+    margin: auto;
+    margin-top: .5vh;
+    margin-bottom: .5vh;
+    min-height: 10vh;
+    height: 10vh;
+    grid-template-columns: 2fr 8fr;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.imageHolder {
+    border: .4vh solid black;
+    border-radius: 2vh;
+    background-color: rgb(255, 255, 255);
+    width: 90%;
+    height: 90%;
+
+}
+
+#Close {
+    color: red;
+    font-size: 2vh;
+    width: 2vh;
+    background-color: black;
+    margin-left: 94.3%;
+    margin-top: .2vh;
+    font-weight: bold;
+    text-align: right;
+    border: .2vh solid white;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    border-radius: 2vh;
+}
+
+#Close:hover {
+    background-color: red;
+    color: black;
+}
+
+.notiHolder {
+    display: grid;
+    grid-template-rows: 3fr 7fr;
+    border: .4vh solid black;
+    border-radius: 2vh;
+    background-color: rgb(255, 255, 255);
+    height: 90%;
+    width: 100%;
+
+}
+
+.infoHolder {
+    width: 99%;
+    border-radius: 2vh;
+    background-color: rgb(255, 255, 255);
+    text-shadow: black 1px 1px 7px;
+    text-align: center;
+}
