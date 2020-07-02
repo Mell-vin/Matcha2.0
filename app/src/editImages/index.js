@@ -50,7 +50,10 @@ class EditImages extends React.Component {
     }
 
     try {
-      await axios.post('http://localhost:3001/user-images', formData);
+      const res = await axios.post('http://localhost:3001/user-images', formData);
+      if (res.status === 200) {
+        this.props.history.push('/profile');
+    }
     } catch (e) { console.log(e.message || e); }
   }
 
@@ -61,15 +64,7 @@ class EditImages extends React.Component {
 
     return (
       <div className="ImagesCont">
-        {/*
-          images.map((image, index) => 
-            <React.Fragment key={index} >
-              <img src={'data:image/jpeg;base64,' + image.replace('\n', '')} />
-              <br />
-            </React.Fragment>
-          )
-        */ }
-        <input
+        <input className="ImageSpan"
           type="file"
           accept="image/*"
           multiple

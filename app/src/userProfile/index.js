@@ -11,12 +11,22 @@ class UserProfile extends React.Component {
     this.state = {
       interests: [],
       userInterests: [],
+      images: ['','','','','']
     };
+  }
+
+  onGetImages = async () => {
+    try {
+      const res = await axios.get('http://localhost:3001/user-images');
+
+      this.setState({ images: res.data.images });
+    } catch (e) { console.log(e.message || e); }
   }
 
   componentDidMount() {
     this.onGetInterests();
     this.onGetUserInterests();
+    this.onGetImages();
   }
 
   onGetInterests = async () => {
@@ -55,9 +65,11 @@ class UserProfile extends React.Component {
     const {
       interests,
       userInterests,
+      images
     } = this.state;
 
     return (
+
       <div>
         <br />
         <h1>My Profile</h1>
@@ -94,9 +106,16 @@ class UserProfile extends React.Component {
         </Link>
         </div>
         <span className="imageCont">
-          {
-            // list images
-          }
+          <div>
+            {
+          images.map((image, index) => 
+            <React.Fragment key={index} >
+              <img src={'data:image/jpeg;base64,' + image.replace('\n', '')} />
+              <br />
+            </React.Fragment>
+          )
+        }
+        </div>
         </span>
         </div>
       </div>
