@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../myCSS/signUp.css';
+import emailjs from 'emailjs-com';
 
 class Registration extends React.Component {
 
@@ -16,6 +17,14 @@ class Registration extends React.Component {
     }
   }
 
+  Emailer =(event) => {
+    emailjs.sendForm(
+      "matcha",
+      " authentication",
+      "SignCont",
+      " user_MficxMpkaHDSEh7kxDkFN"
+    )
+  }
   onRegister = () => {
     axios.post(
       'http://localhost:3001/registration',

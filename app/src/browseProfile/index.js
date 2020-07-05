@@ -20,6 +20,7 @@ class BrowseProfile extends React.Component {
       sexuality: '',
       biography: '',
       birthdate: '',
+      mylocation: '',
     }
   }
 
@@ -65,6 +66,7 @@ class BrowseProfile extends React.Component {
         sexuality: res.data.sexuality,
         biography: res.data.biography,
         birthdate: res.data.birthdate,
+        mylocation: res.data.mylocation,
       });
     } catch (e) { console.log(e.message || e); }
   }
@@ -137,6 +139,7 @@ class BrowseProfile extends React.Component {
       sexuality,
       biography,
       birthdate,
+      mylocation,
     } = this.state;
 
     return (
@@ -147,6 +150,7 @@ class BrowseProfile extends React.Component {
         <span className="BrowseProfSpan">Gender: {gender}</span>
         <span className="BrowseProfSpan">Sexuality: {sexuality}</span>
         <span className="BrowseProfSpan">Biography: {biography}</span>
+        <span className="BrowseProfSpan">My Location: {mylocation}</span>
         <span className="BrowseProfSpan">Birthdate: {birthdate.split('T')[0]}</span>
         {
           this.state.matched

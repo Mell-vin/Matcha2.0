@@ -10,8 +10,8 @@ class Login extends React.Component {
 
     this.state = {
       username: '',
-      password: '',
-    }
+      password: ''
+    };
   }
 
   onLogin = async () => {
@@ -67,7 +67,7 @@ class Login extends React.Component {
         <br />
 
         <Link to='/'>
-          <button className="Loginbutt">Go Back</button>
+          <button className="Loginbutt">Go back</button>
         </Link>
       </div>
     );

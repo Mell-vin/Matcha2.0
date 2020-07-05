@@ -4,6 +4,9 @@ SELECT
     genders.gender,
     sexualities.sexuality,
     user_profiles.biography,
+    user_profiles.mylocation,
+    user_profiles.latitude,
+    user_profiles.longitude,
     user_profiles.birthdate
 FROM ((user_profiles INNER JOIN genders
     ON user_profiles.gender_id = genders.id)

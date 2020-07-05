@@ -37,6 +37,9 @@ class App extends React.Component {
       sexuality: '',
       biography: '',
       birthdate: '',
+      mylocation: '',
+      latitude: '',
+      longitude: '',
     }
   }
 
@@ -110,7 +113,9 @@ class App extends React.Component {
       sexuality: profileInfo.sexuality,
       biography: profileInfo.biography,
       birthdate: profileInfo.birthdate,
+      mylocation: profileInfo.mylocation,
     });
+    console.log(profileInfo);
   }
 
 
@@ -140,6 +145,9 @@ class App extends React.Component {
       sexuality,
       biography,
       birthdate,
+      mylocation,
+      latitude,
+      longitude,
     } = this.state;
 
     return (
@@ -173,6 +181,7 @@ class App extends React.Component {
                 gender={gender}
                 sexuality={sexuality}
                 biography={biography}
+                mylocation={mylocation}
                 birthdate={birthdate}
               />
             }
@@ -187,6 +196,7 @@ class App extends React.Component {
                 sexualityId={sexualityId}
                 biography={biography}
                 birthdate={birthdate}
+                mylocation={mylocation}
                 onSetUserInfo={this.onSetUserInfo}
                 onSetProfileInfo={this.onSetProfileInfo}
               />
@@ -203,7 +213,11 @@ class App extends React.Component {
           <AuthRoute exact path='/password' isAuthenticated={isAuthenticated} component={ChangePassword} />
           <AuthRoute exact path='/edit-interests' isAuthenticated={isAuthenticated} component={EditInterests} />
           <AuthRoute exact path='/edit-images' isAuthenticated={isAuthenticated} component={EditImages} />
-          <AuthRoute exact path='/browse' isAuthenticated={isAuthenticated} component={Browse} />
+          <AuthRoute exact path='/browse' isAuthenticated={isAuthenticated}
+          component={() => <Browse
+            latitude={latitude}
+            longitude={longitude}
+          />} />
           <AuthRoute exact path='/profile/:userId' isAuthenticated={isAuthenticated} component={BrowseProfile} />
           <AuthRoute exact path='/matches' isAuthenticated={isAuthenticated} component={Matches} />
           <AuthRoute exact path='/chat/:matchId' isAuthenticated={isAuthenticated}

@@ -1,9 +1,10 @@
 .editProfCont {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     margin-top: 6vh;
-    width: fit-content;
+    width: 97w;
     padding: 1vw;
+    min-width: 360px;
     border-radius: 1vh;
     box-shadow: 5px 7px 20px rgb(255, 255, 255);
 }
@@ -21,6 +22,24 @@
 }
 
 .EditProfbutt:hover {
+    color: black;
+    background-color: white;
+    text-shadow: 1px 1px 10px rgb(0, 0, 0);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+}
+
+.LocButt {
+    margin-left: 1%;
+    margin-top: .5%;
+    color: white;
+    border-radius: 2vh;
+    box-shadow: 5px 7px 20px rgb(255, 255, 255);
+    font-weight: bold;
+    background-color: black;
+    font-size: 2vw;
+}
+
+.LocButt:hover {
     color: black;
     background-color: white;
     text-shadow: 1px 1px 10px rgb(0, 0, 0);

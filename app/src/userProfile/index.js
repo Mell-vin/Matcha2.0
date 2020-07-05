@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import {geolocated} from 'react-geolocated';
 import '../myCSS/profile.css';
 import '../myCSS/header.css';
 
@@ -11,8 +12,60 @@ class UserProfile extends React.Component {
     this.state = {
       interests: [],
       userInterests: [],
-      images: ['','','','','']
+      images: ['','','','',''],
+      profImage: '',
+      latitude: null,
+      longitude: null,
+      CurrSpot: null,
+      APIKey: 'AIzaSyDJQg9ozsmNdLTSnZypV85Id53WB4ceCPc'
     };
+    this.getLocation = this.getLocation.bind(this);
+    this.getCoordinates = this.getCoordinates.bind(this);
+    this.getUserAddress = this.getUserAddress.bind(this);
+  }
+
+  getLocation () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.getCoordinates, this.handleLocationError);
+    } else {
+      alert("This broswer doesnt support Geolocation :(");
+    }
+  }
+
+  getUserAddress () {
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.state.latitude + ',' + this.state.longitude + '&sensor=false&key=' + this.state.APIKey)
+    .then(response => response.json())
+    .then(data => this.setState({
+      CurrSpot: data.results[5].formatted_address
+    }))
+    .catch(error => alert(error))
+  }
+
+  getCoordinates (position) {
+    this.setState({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    })
+    this.getUserAddress()
+  }
+
+  handleLocationError (error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied permission to use location");
+        break;
+      case error.POSITION-UNAVAILABLE:
+        alert("Location info is unavailable");
+        break;
+      case error.TIMEOUT:
+        alert("the request timed out");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred");
+        break;
+      default:
+        alert("An unknown error occurred");
+    }
   }
 
   onGetImages = async () => {
@@ -27,6 +80,7 @@ class UserProfile extends React.Component {
     this.onGetInterests();
     this.onGetUserInterests();
     this.onGetImages();
+    this.getLocation();
   }
 
   onGetInterests = async () => {
@@ -50,7 +104,6 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    console.log('[UserProfile]', this.state);
     const {
       username,
       firstName,
@@ -60,6 +113,7 @@ class UserProfile extends React.Component {
       sexuality,
       biography,
       birthdate,
+      CurrSpot,
     } = this.props;
 
     const {
@@ -75,7 +129,11 @@ class UserProfile extends React.Component {
         <h1>My Profile</h1>
         <div className="mainCont">
         <div className="Profcontainer">
-
+        <div>
+        {
+          images[0] && <img src={'data:image/jpeg;base64,' + images[0].replace('\n', '')} />
+        }
+        </div>
         <span className="spanC">Username: {username}</span>
 
         <span className="spanC">First Name: {firstName}</span>
@@ -89,6 +147,8 @@ class UserProfile extends React.Component {
         <span className="spanC">Sexuality: {sexuality}</span>
 
         <span className="spanC">Biography: {biography}</span>
+
+        <span className="spanC">Curr Location: {this.state.CurrSpot}</span>
 
         <span className="spanC">Birthdate: {birthdate.split('T')[0]}</span>
 
@@ -108,9 +168,10 @@ class UserProfile extends React.Component {
         <span className="imageCont">
           <div>
             {
-          images.map((image, index) => 
+          images.length > 0 && images.map((image, index) => 
             <React.Fragment key={index} >
               <img src={'data:image/jpeg;base64,' + image.replace('\n', '')} />
+              <button type="button">Delete</button>
               <br />
             </React.Fragment>
           )

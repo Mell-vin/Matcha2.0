@@ -550,7 +550,10 @@ app.put('/profile', async (req, res) => {
         userData.gender_id,
         userData.sexuality_id,
         userData.biography,
-        userData.birthdate
+        userData.birthdate,
+        userData.mylocation,
+        userData.latitude,
+        userData.longitude
       ]
     );
 

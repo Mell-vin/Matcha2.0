@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../myCSS/match.css';
 
 class Matches extends React.Component {
     constructor(props) {
@@ -64,34 +65,33 @@ class Matches extends React.Component {
 
         return (
             <div>
-                <h1>Matches Component</h1>
                 {
-                    matches.map(match => <div key={match.username}>
-                        <span>Username: {match.username}</span>
-                        <br />
-                        <span>First Name: {match.firstName}</span>
-                        <br />
-                        <span>Last Name: {match.lastName}</span>
-                        <br />
-                        <span>Gender: {match.gender}</span>
-                        <br />
-                        <span>Sexuality: {match.sexuality}</span>
-                        <br />
-                        <span>Biography: {match.biography}</span>
-                        <br />
-                        <span>Birthdate: {match.birthdate}</span>
-                        <br />
+                    matches.map(match => <div className="MatchCont" key={match.username}>
+                        <span className="MatchSpan">Username: {match.username}</span>
+                        
+                        <span className="MatchSpan">First Name: {match.firstName}</span>
+                        
+                        <span className="MatchSpan">Last Name: {match.lastName}</span>
+                        
+                        <span className="MatchSpan">Gender: {match.gender}</span>
+                        
+                        <span className="MatchSpan">Sexuality: {match.sexuality}</span>
+                        
+                        <span className="MatchSpan">Biography: {match.biography}</span>
+                        
+                        <span className="MatchSpan">Birthdate: {match.birthdate.split('T')[0]}</span>
+                        
                         <Link to={'/profile/' + match.userId} >
-                            <button>View Profile</button>
+                            <button className="Matchbutt">View Profile</button>
                         </Link>
-                        <br />
+                        
                         <Link
                             to={{
                                 pathname: '/chat/' + match.matchId,
                                 state: { targetUsername: match.username },
                             }}
                         >
-                            <button>Chat</button>
+                            <button className="Matchbutt">Chat</button>
                         </Link>
                     </div>
                     )

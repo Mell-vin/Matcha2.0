@@ -16,7 +16,43 @@ class EditProfile extends React.Component {
       sexualityId: NaN,
       genders: [],
       sexualities: [],
+      latitude: '',
+      longitude: '',
+      mylocation: 'HDN',
+      APIKey: 'AIzaSyDJQg9ozsmNdLTSnZypV85Id53WB4ceCPc'
     };
+    this.getLocation = this.getLocation.bind(this);
+    this.getCoordinates = this.getCoordinates.bind(this);
+    this.getUserAddress = this.getUserAddress.bind(this);
+    this.UseCurr = this.UseCurr.bind(this);
+  }
+
+  UseCurr () {
+    this.getUserAddress();
+  }
+
+  getLocation () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.getCoordinates, this.handleLocationError);
+    } else {
+      alert("This broswer doesnt support Geolocation :(");
+    }
+  }
+
+  getUserAddress () {
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.state.latitude + ',' + this.state.longitude + '&sensor=false&key=' + this.state.APIKey)
+    .then(response => response.json())
+    .then(data => this.setState({
+      mylocation: data.results[5].formatted_address
+    }))
+    .catch(error => alert(error))
+  }
+
+  getCoordinates (position) {
+    this.setState({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    })
   }
 
   componentDidMount() {
@@ -28,10 +64,12 @@ class EditProfile extends React.Component {
       sexualityId: this.props.sexualityId,
       biography: this.props.biography,
       birthdate: this.props.birthdate.split('T')[0],
+      mylocation: this.props.mylocation,
     });
 
     this.onGetGenders();
     this.onGetSexualities();
+    this.getLocation();
   }
 
   onGetGenders = async () => {
@@ -81,6 +119,7 @@ class EditProfile extends React.Component {
   }
 
   onSaveProfileInfo = async () => {
+    this.getLocation();
     try {
       await axios.put(
         'http://localhost:3001/profile',
@@ -89,6 +128,9 @@ class EditProfile extends React.Component {
           sexuality_id: this.state.sexualityId,
           biography: this.state.biography,
           birthdate: this.state.birthdate,
+          mylocation: this.state.mylocation,
+          latitude: this.state.latitude,
+          longitude: this.state.longitude,
         }
       );
 
@@ -99,7 +141,9 @@ class EditProfile extends React.Component {
         sexuality: this.state.sexualities[this.state.sexualityId - 1].sexuality,
         biography: this.state.biography,
         birthdate: this.state.birthdate,
+        mylocation: this.state.mylocation,
       });
+  
     } catch (e) { console.log(e.message || e); }
   }
 
@@ -114,6 +158,7 @@ class EditProfile extends React.Component {
       birthdate,
       genders,
       sexualities,
+      mylocation,
     } = this.state;
 
     return (
@@ -143,6 +188,16 @@ class EditProfile extends React.Component {
             value={lastName}
             onChange={(event) => { this.setState({ lastName: event.target.value }); }}
           ></input>
+        </label>
+
+        <label className="EditProfSpan">
+          mylocation  :
+          <input
+            type='text'
+            value={mylocation}
+            onChange={(event) => { this.setState({ mylocation: event.target.value }); }}
+          ></input>
+          <button className="LocButt" type="button" onClick={this.UseCurr}>Use Current Loc</button>
         </label>
 
         <label className="EditProfSpan">

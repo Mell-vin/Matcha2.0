@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../myCSS/chat.css';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -49,23 +50,25 @@ class Chat extends React.Component {
     const { targetUsername } = this.props.location.state;
 
     return (
-      <div>
-        <h1>Chat Component</h1>
+      <div className="ChatCont">
+        <h1>Chat Room</h1>
+        <div className="ChatSplit">
         {
           messages.map((message, index) => <div key={index}>
-            <span>
+            <span className="ChatSpan">
             {
               message.user_id === this.props.userId
               ? "You"
               : targetUsername
             }
             </span>:
-            <span>{message.chat_message}</span>
-            (<span>{message.date_created.split('T')[0]}</span>)
+            <span className="chatMsg">{message.chat_message}</span>
+            <span className="chatMsgDate">({message.date_created.split('T')[0]})</span>
           </div>
           )
         }
-        <textarea
+        </div>
+        <textarea className="textInput"
           value={this.state.message}
           onChange={(event) => {
             this.setState({ message: event.target.value });
@@ -73,7 +76,7 @@ class Chat extends React.Component {
           placeholder="Type a message..."
         ></textarea>
         <br />
-        <button onClick={this.onSendMessage} >Send</button>
+        <button className="Chatbutt" onClick={this.onSendMessage} >Send</button>
       </div>
     );
   }
