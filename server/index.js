@@ -4,6 +4,7 @@ const cors = require('cors');
 const sha256 = require('js-sha256');
 const multer = require('multer');
 const fs = require('fs');
+const verifyAccount = require('./mailRoom');
 
 var upload = multer({ dest: 'resources/images/' });
 
@@ -97,7 +98,7 @@ app.post('/registration', async (req, res) => {
         hashedPassword
       ]
     );
-
+    verifyAccount(userData.email);
     res.status(201).json({ userId: user.id });
 
     return;

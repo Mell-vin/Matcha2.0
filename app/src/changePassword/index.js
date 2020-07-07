@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../myCSS/changePwd.css';
 
@@ -7,22 +8,29 @@ class ChangePassword extends React.Component {
         super(props);
 
         this.state = {
-            password: ''
+            newpassword: '',
+            password: '',
         }
-    }
+    }       
 
             onChangePwd = async () => {
-                try {
-                    const res = await axios.post(
-                        'http://localhost:3001/password',
-                        { password: this.state.password }
-                    );
-    
-                    if (res.status === 200) {
-                        this.props.onChangePwd(this.state.password);
-                        this.props.history.push('/profile');
-                    }
-                } catch (e) { console.log(e.message || e); }
+                if (this.state.newpassword == this.state.password) 
+                {   
+                    try {
+                        const res = await axios.post(
+                            'http://localhost:3001/password',
+                            { password: this.state.password }
+                        );
+        
+                        if (res.status === 200) {
+                            this.props.onSetPwd(this.state.password);
+                            this.props.onUserLogout();
+                            this.props.history.push('/login');
+                        }
+                    } catch (e) { console.log(e.message || e); }
+                }
+                else
+                    alert("Passwords don't match");
             }
 
     render() {
@@ -33,6 +41,19 @@ class ChangePassword extends React.Component {
                     <input
                         type="password"
                         placeholder="New Password"
+                        value={this.state.newpassword}
+                        onChange={
+                            (event) => {
+                                this.setState({ newpassword: event.target.value });
+                            }
+                        }
+                    ></input>
+                </label>
+                <label className="changePwdSpan">
+                    Confirm Password:
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
                         value={this.state.password}
                         onChange={
                             (event) => {
@@ -47,4 +68,4 @@ class ChangePassword extends React.Component {
     }
 }
 
-export default ChangePassword;
+export default withRouter(ChangePassword);

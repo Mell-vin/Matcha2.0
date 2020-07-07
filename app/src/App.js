@@ -100,6 +100,10 @@ class App extends React.Component {
 
   onSetEmail = (email) => {
     this.setState({ email: email });
+  }  
+  
+  onSetPwd = (password) => {
+    this.setState({ password: password });
   }
 
   onSetProfileInfo = (profileInfo) => {
@@ -200,7 +204,17 @@ class App extends React.Component {
               />
             }
           />
-          <AuthRoute exact path='/password' isAuthenticated={isAuthenticated} component={ChangePassword} />
+          <AuthRoute exact path='/password' isAuthenticated={isAuthenticated}
+            component={
+              () => <ChangePassword
+                newpassword={''}
+                password={''}
+                onSetPwd={this.onSetPwd}
+                onUserLogout={this.onUserLogout}
+              />
+            }
+          />
+          {/* <AuthRoute exact path='/password' isAuthenticated={isAuthenticated} component={ChangePassword} /> */}
           <AuthRoute exact path='/edit-interests' isAuthenticated={isAuthenticated} component={EditInterests} />
           <AuthRoute exact path='/edit-images' isAuthenticated={isAuthenticated} component={EditImages} />
           <AuthRoute exact path='/browse' isAuthenticated={isAuthenticated} component={Browse} />
