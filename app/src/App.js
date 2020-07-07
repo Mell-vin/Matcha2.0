@@ -79,6 +79,7 @@ class App extends React.Component {
 
       if (res.status === 200) {
         this.onSetProfileInfo(res.data);
+        this.onCoor(res.data);
       }
     } catch (e) { console.log(e.message || e); }
   }
@@ -115,9 +116,14 @@ class App extends React.Component {
       birthdate: profileInfo.birthdate,
       mylocation: profileInfo.mylocation,
     });
-    console.log(profileInfo);
   }
 
+  onCoor = (profileInfo) => {
+    this.setState({
+      latitude: profileInfo.latitude,
+      longitude: profileInfo.longitude,
+    });
+  }
 
   onUserLogout = async () => {
     try {
@@ -217,6 +223,7 @@ class App extends React.Component {
           component={() => <Browse
             latitude={latitude}
             longitude={longitude}
+            onCoor={this.onCoor}
           />} />
           <AuthRoute exact path='/profile/:userId' isAuthenticated={isAuthenticated} component={BrowseProfile} />
           <AuthRoute exact path='/matches' isAuthenticated={isAuthenticated} component={Matches} />

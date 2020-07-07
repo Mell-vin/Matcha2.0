@@ -35,3 +35,10 @@
     width: fit-content;
     border: .2vh solid rgb(26, 25, 25);
 }
+
+.SignUpWarning {
+    color: rgb(146, 23, 23);
+    font-size: 2vh;
+    font-weight: bold;
+    text-shadow: 1px 1px 7px rgb(121, 111, 111);
+}

@@ -21,11 +21,21 @@ class BrowseProfile extends React.Component {
       biography: '',
       birthdate: '',
       mylocation: '',
+      Vlat: '',
+      Vlon: '',
+      latitude: '',
+      longitude: '',
+      Dist: '',
     }
   }
 
   componentDidMount() {
-    console.log('props', this.props);
+    console.log('props', this.props.latitude);
+
+    this.setState({
+      Vlat: this.props.latitude,
+      Vlon: this.props.longitude,
+    });
 
     const { match: { params }} = this.props;
 
@@ -35,6 +45,7 @@ class BrowseProfile extends React.Component {
       this.getProfileInfo();
       this.getLiked();
     });
+    this.setState({Dist: this.distance(this.state.Vlat, this.state.Vlon, this.state.latitude, this.state.longitude, 'K')});
   }
 
   getBlocked = async () => {
@@ -61,14 +72,40 @@ class BrowseProfile extends React.Component {
     try {
       const res = await axios.get('http://localhost:3001/profile?userId=' + this.state.userId);
 
+      if (res.status === 200) {
       this.setState({
         gender: res.data.gender,
         sexuality: res.data.sexuality,
         biography: res.data.biography,
         birthdate: res.data.birthdate,
         mylocation: res.data.mylocation,
+        latitude: res.data.latitude,
+        longitude: res.data.longitude,
       });
+    }
     } catch (e) { console.log(e.message || e); }
+  }
+
+  distance(lat1, lon1, lat2, lon2, unit) {
+    if ((lat1 == lat2) && (lon1 == lon2)) {
+      return 0;
+    }
+    else {
+      var radlat1 = Math.PI * lat1/180;
+      var radlat2 = Math.PI * lat2/180;
+      var theta = lon1-lon2;
+      var radtheta = Math.PI * theta/180;
+      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180/Math.PI;
+      dist = dist * 60 * 1.1515;
+      if (unit=="K") { dist = dist * 1.609344 }
+      if (unit=="N") { dist = dist * 0.8684 }
+      return dist;
+    }
   }
 
   getLiked = async () => {
@@ -140,6 +177,7 @@ class BrowseProfile extends React.Component {
       biography,
       birthdate,
       mylocation,
+      Dist,
     } = this.state;
 
     return (
@@ -151,6 +189,7 @@ class BrowseProfile extends React.Component {
         <span className="BrowseProfSpan">Sexuality: {sexuality}</span>
         <span className="BrowseProfSpan">Biography: {biography}</span>
         <span className="BrowseProfSpan">My Location: {mylocation}</span>
+        <span className="BrowseProfSpan">Distance: {Dist}</span>
         <span className="BrowseProfSpan">Birthdate: {birthdate.split('T')[0]}</span>
         {
           this.state.matched

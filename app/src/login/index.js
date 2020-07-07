@@ -28,7 +28,10 @@ class Login extends React.Component {
         this.props.onUserLogin();
         this.props.history.push('/profile');
       }
-    } catch (e) { console.log(e.message || e); }
+    } catch (e) {
+      console.log(e.message || e);
+      alert("Credential error. Try again :(");
+    }
   }
 
   render() {
