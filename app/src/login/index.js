@@ -72,6 +72,10 @@ class Login extends React.Component {
         <Link to='/'>
           <button className="Loginbutt">Go back</button>
         </Link>
+  <br />
+  <Link to='././forgot_pass'>
+          <button className="Loginbutt">Forgot Password?</button>
+        </Link>
       </div>
     );
   }

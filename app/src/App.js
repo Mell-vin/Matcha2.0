@@ -18,6 +18,7 @@ import BrowseProfile from './browseProfile';
 import Matches from './matches';
 import Chat from './chat';
 import Header from './header';
+import forgot_pass from './forgot_pass';
 
 class App extends React.Component {
   constructor(props) {
@@ -177,6 +178,7 @@ class App extends React.Component {
             />
           } />
           <Route exact path='/registration' component={Registration} />
+          <Route exact path='/forgot_pass' component={forgot_pass} />
           <AuthRoute exact path='/profile' isAuthenticated={isAuthenticated}
             component={
               () => <UserProfile
