@@ -81,7 +81,6 @@ class EditInterests extends React.Component {
 
     return (
       <div className="IntCont">
-        <h1 >Edit Interests:</h1>
         <label className="IntSpan">
           <b className="IntSpan">Your Interests:</b>
           {
