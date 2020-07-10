@@ -19,8 +19,8 @@ class EditProfile extends React.Component {
       latitude: '',
       longitude: '',
       mylocation: 'HDN',
-      APIKey: 'AIzaSyDJQg9ozsmNdLTSnZypV85Id53WB4ceCPc'
-    };
+      APIKey: 'AIzaSyACQYSgZwbmC1Pz0GN7IOts68IgpyrNsl4'
+    }; {/* AIzaSyDJQg9ozsmNdLTSnZypV85Id53WB4ceCPc */}
     this.getLocation = this.getLocation.bind(this);
     this.getCoordinates = this.getCoordinates.bind(this);
     this.getUserAddress = this.getUserAddress.bind(this);

@@ -360,9 +360,6 @@ app.put('/email', async (req, res) => {
     return;
   }
 
-  console.log('userdata', userData);
-  console.log('userdata', req.session.userId);
-  console.log('userdata', hashedPassword);
   try {
     
     await db.none(
@@ -382,6 +379,38 @@ app.put('/email', async (req, res) => {
     res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
 
     return;
+  }
+});
+
+app.get('/search', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(403).send();
+
+    return;
+  }
+
+  
+  try {
+    const profile = await db.any(dbUserProfiles.search,
+      [
+        req.query.mylocation,
+        req.query.biography,
+        req.query.birthdate,
+        req.query.sort,
+      ]
+      );
+
+    if (profile === null) {
+      res.status(400).send();
+
+      return;
+    }
+
+    res.status(200).json(profile);
+
+    return;
+  } catch (e) {
+    console.log('Error retrieving user profile: ' + e.message || e);
   }
 });
 
@@ -794,6 +823,43 @@ app.get('/likes', async (req, res) => {
     return;
   } catch (e) {
     console.log('Error getting likes: ' + e.message || e);
+
+    res.status(500).json({
+      message: 'Unfortunately we are experiencing technical difficulties right now'
+    });
+
+    return;
+  }
+});
+
+app.get('/fame', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(403).send();
+    console.log("forohthree");
+    return;
+  }
+
+  try {
+    const fameCount = await db.oneOrNone(
+      dbLikes.fame,
+      [
+        req.query.userId
+      ]
+    );
+
+    if (fameCount !== null) {
+      console.log("Fame count null");
+      res.status(200).send(fameCount);
+
+      return;
+    }
+    console.log("forohoh");
+    res.status(400).send();
+
+    return;
+  } catch (e) {
+    console.log("you swallow");
+    console.log('Error getting Fame: ' + e.message || e);
 
     res.status(500).json({
       message: 'Unfortunately we are experiencing technical difficulties right now'

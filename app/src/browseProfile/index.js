@@ -21,21 +21,12 @@ class BrowseProfile extends React.Component {
       biography: '',
       birthdate: '',
       mylocation: '',
-      Vlat: '',
-      Vlon: '',
-      latitude: '',
       longitude: '',
-      Dist: '',
+      fame: '0',
     }
   }
 
   componentDidMount() {
-    console.log('props', this.props.latitude);
-
-    this.setState({
-      Vlat: this.props.latitude,
-      Vlon: this.props.longitude,
-    });
 
     const { match: { params }} = this.props;
 
@@ -45,14 +36,15 @@ class BrowseProfile extends React.Component {
       this.getProfileInfo();
       this.getLiked();
     });
-    this.setState({Dist: this.distance(this.state.Vlat, this.state.Vlon, this.state.latitude, this.state.longitude, 'K')});
   }
 
   getBlocked = async () => {
     try {
       const res = await axios.get('http://localhost:3001/block?userId=' + this.state.userId);
 
-      console.log('blocked:', res);
+      if (res.status === 200){
+        console.log('blocked:', res);
+      }
     } catch (e) { console.log(e.message || e); }
   }
 
@@ -84,27 +76,15 @@ class BrowseProfile extends React.Component {
       });
     }
     } catch (e) { console.log(e.message || e); }
-  }
+    try {
+      const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
 
-  distance(lat1, lon1, lat2, lon2, unit) {
-    if ((lat1 == lat2) && (lon1 == lon2)) {
-      return 0;
-    }
-    else {
-      var radlat1 = Math.PI * lat1/180;
-      var radlat2 = Math.PI * lat2/180;
-      var theta = lon1-lon2;
-      var radtheta = Math.PI * theta/180;
-      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
+      if (res.status === 200) {
+        console.log("mxm :" + res.data.count);
+        this.setState({fame: res.data.count});
       }
-      dist = Math.acos(dist);
-      dist = dist * 180/Math.PI;
-      dist = dist * 60 * 1.1515;
-      if (unit=="K") { dist = dist * 1.609344 }
-      if (unit=="N") { dist = dist * 0.8684 }
-      return dist;
+    } catch (e) {
+      console.log("at here " + e.message || e);
     }
   }
 
@@ -128,6 +108,16 @@ class BrowseProfile extends React.Component {
         await this.getMatched();
       }
     } catch (e) { console.log(e.message || e); }
+    try {
+      const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
+
+      if (res.status === 200) {
+        console.log("mxm :" + res.data.count);
+        this.setState({fame: res.data.count});
+      }
+    } catch (e) {
+      console.log("at here " + e.message || e);
+    }
   }
 
   onUnlikeUser = async () => {
@@ -142,6 +132,16 @@ class BrowseProfile extends React.Component {
         });
       }
     } catch (e) { console.log(e.message || e); }
+    try {
+      const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
+
+      if (res.status === 200) {
+        console.log("mxm :" + res.data.count);
+        this.setState({fame: res.data.count});
+      }
+    } catch (e) {
+      console.log("at here " + e.message || e);
+    }
   }
 
   getMatched = async () => {
@@ -177,11 +177,12 @@ class BrowseProfile extends React.Component {
       biography,
       birthdate,
       mylocation,
-      Dist,
+      fame,
     } = this.state;
 
     return (
       <div className="browseProfcontainer">
+        
         <span className="BrowseProfSpan">Username: {username}</span>
         <span className="BrowseProfSpan">First Name: {firstName}</span>
         <span className="BrowseProfSpan">Last Name: {lastName}</span>
@@ -189,7 +190,7 @@ class BrowseProfile extends React.Component {
         <span className="BrowseProfSpan">Sexuality: {sexuality}</span>
         <span className="BrowseProfSpan">Biography: {biography}</span>
         <span className="BrowseProfSpan">My Location: {mylocation}</span>
-        <span className="BrowseProfSpan">Distance: {Dist}</span>
+        <span className="BrowseProfSpan">Fame: {fame}</span>
         <span className="BrowseProfSpan">Birthdate: {birthdate.split('T')[0]}</span>
         {
           this.state.matched
