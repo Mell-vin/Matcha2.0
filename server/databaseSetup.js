@@ -29,13 +29,14 @@ function sql(file) {
   }
 
   console.log('Populating tables...');
-  await seedmatcha.seedInterests();
+  
   try {
     await db.none(sql('./sql/init/populate.sql'));
   } catch (e) {
     console.log('Error populating tables: ' + e.message || e);
   }
   await seedmatcha.seedusers();
+  // await seedmatcha.seedInterests();
   // await seedmatcha.seeduserProfiles();
   // await seedmatcha.seedUserInterests();
 
