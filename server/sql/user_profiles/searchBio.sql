@@ -1,5 +1,6 @@
 SELECT
     user_profiles.gender_id,
+    user_profiles.user_id,
     user_profiles.sexuality_id,
     genders.gender,
     sexualities.sexuality,

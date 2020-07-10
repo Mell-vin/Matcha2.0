@@ -20,9 +20,9 @@ class Search extends React.Component {
         }
     }
 
-    getBlocked = async () => {
+    getBlocked = async (Uid) => {
         try {
-          const res = await axios.get('http://localhost:3001/block?userId=' + this.state.userId);
+          const res = await axios.get('http://localhost:3001/block?userId=' + Uid);
     
           if (res.status === 200){
             console.log('blocked:', res);
@@ -30,9 +30,9 @@ class Search extends React.Component {
         } catch (e) { console.log(e.message || e); }
       }
     
-      getLiked = async () => {
+      getLiked = async (Uid) => {
         try {
-          const res = await axios.get('http://localhost:3001/likes?userId=' + this.state.userId);
+          const res = await axios.get('http://localhost:3001/likes?userId=' + Uid);
     
           if (res.status === 200) {
             this.setState({ liked: true });
@@ -41,9 +41,9 @@ class Search extends React.Component {
         } catch (e) { console.log(e.message || e); }
       }
     
-      onLikeUser = async () => {
+      onLikeUser = async (Uid) => {
         try {
-          const res = await axios.post('http://localhost:3001/like', { targetId: this.state.userId });
+          const res = await axios.post('http://localhost:3001/like', { targetId: Uid });
     
           if (res.status === 200) {
             this.setState({ liked: true });
@@ -51,7 +51,7 @@ class Search extends React.Component {
           }
         } catch (e) { console.log(e.message || e); }
         try {
-          const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
+          const res = await axios.get('http://localhost:3001/fame?userId=' + Uid);
     
           if (res.status === 200) {
             console.log("mxm :" + res.data.count);
@@ -62,9 +62,9 @@ class Search extends React.Component {
         }
       }
     
-      onUnlikeUser = async () => {
+      onUnlikeUser = async (Uid) => {
         try {
-          const res = await axios.delete('http://localhost:3001/like', { data: { targetId: this.state.userId }});
+          const res = await axios.delete('http://localhost:3001/like', { data: { targetId: Uid }});
     
           if (res.status == 200) {
             this.setState({
@@ -225,10 +225,10 @@ class Search extends React.Component {
                                 <span className="searchSpan">Birthdate: {suggestion.birthdate.split('T')[0]}</span>
                             {
                               this.state.matched
-                              ? <button className="BrowseProfbutt" onClick={this.onUnlikeUser}>Unmatch</button>
+                              ? <button className="BrowseProfbutt" onClick={this.onUnlikeUser(suggestion.user_id)}>Unmatch</button>
                               : this.state.liked
-                                ? <button className="BrowseProfbutt" onClick={this.onUnlikeUser}>Unlike</button>
-                                : <button className="BrowseProfbutt" onClick={this.onLikeUser}>Like</button>
+                                ? <button className="BrowseProfbutt" onClick={this.onUnlikeUser(suggestion.user_id)}>Unlike</button>
+                                : <button className="BrowseProfbutt" onClick={this.onLikeUser(suggestion.user_id)}>Like</button>
                             }
                             {
                               this.state.matched
