@@ -20,11 +20,15 @@ class ForgotPassword extends React.Component {
                 'http://localhost:3001/forgotpassword',
                 { email: this.state.email }
             );
-
+            if (res.status === 404) {
+              alert('Email not found');
+            }
+            if (res.status === 400) {
+              alert('Invalid email');
+            }
             if (res.status === 200) {
-                // this.props.onSetEmail(this.state.email);
-                // this.props.onUserLogout();
-                this.props.history.push('/login');
+              alert("Check email inbox to verify");
+              this.props.history.push('/login');
             }
         } catch (e) { console.log(e.message || e); }
     }
