@@ -72,10 +72,11 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.BrowseSpan {
+.searchSpan {
     font-size: 2vw;
     text-shadow: 1px 1px 10px rgb(245, 245, 245);
     color: white;
+    height: fit-content;
     border: .2vh solid rgb(26, 25, 25);
 }
 

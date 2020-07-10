@@ -514,7 +514,8 @@ app.post('/forgotreset', async (req, res) => {
   }
 });
 
-app.get('/search', async (req, res) => {
+//search by age
+app.get('/searchage', async (req, res) => {
   if (!req.session.userId) {
     res.status(403).send();
 
@@ -523,12 +524,74 @@ app.get('/search', async (req, res) => {
 
   
   try {
-    const profile = await db.any(dbUserProfiles.search,
+    const profile = await db.any(dbUserProfiles.searchDate,
       [
         req.query.mylocation,
         req.query.biography,
         req.query.birthdate,
-        req.query.sort,
+      ]
+      );
+
+    if (profile === null) {
+      res.status(400).send();
+
+      return;
+    }
+
+    res.status(200).json(profile);
+
+    return;
+  } catch (e) {
+    console.log('Error retrieving user profile: ' + e.message || e);
+  }
+});
+
+//search by location
+app.get('/searchlocat', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(403).send();
+
+    return;
+  }
+
+  
+  try {
+    const profile = await db.any(dbUserProfiles.searchLocat,
+      [
+        req.query.mylocation,
+        req.query.biography,
+        req.query.birthdate,
+      ]
+      );
+
+    if (profile === null) {
+      res.status(400).send();
+
+      return;
+    }
+
+    res.status(200).json(profile);
+
+    return;
+  } catch (e) {
+    console.log('Error retrieving user profile: ' + e.message || e);
+  }
+});
+
+app.get('/searchbio', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(403).send();
+
+    return;
+  }
+
+  
+  try {
+    const profile = await db.any(dbUserProfiles.searchBio,
+      [
+        req.query.mylocation,
+        req.query.biography,
+        req.query.birthdate,
       ]
       );
 

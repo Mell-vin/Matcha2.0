@@ -13,6 +13,7 @@ class Search extends React.Component {
             biography: '',
             mylocation: '',
             sort: '',
+            liked: false,
             matched: false,
             matchId: '',
             suggestions: [],
@@ -27,46 +28,6 @@ class Search extends React.Component {
             console.log('blocked:', res);
           }
         } catch (e) { console.log(e.message || e); }
-      }
-    
-      getUserInfo = async () => {
-        try {
-          const res = await axios.get('http://localhost:3001/user?userId=' + this.state.userId);
-    
-          this.setState({
-            firstName: res.data.firstName,
-            lastName: res.data.lastName,
-            username: res.data.username,
-          });
-        } catch (e) { console.log(e.message || e); }
-      }
-    
-      getProfileInfo = async () => {
-        try {
-          const res = await axios.get('http://localhost:3001/profile?userId=' + this.state.userId);
-    
-          if (res.status === 200) {
-          this.setState({
-            gender: res.data.gender,
-            sexuality: res.data.sexuality,
-            biography: res.data.biography,
-            birthdate: res.data.birthdate,
-            mylocation: res.data.mylocation,
-            latitude: res.data.latitude,
-            longitude: res.data.longitude,
-          });
-        }
-        } catch (e) { console.log(e.message || e); }
-        try {
-          const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
-    
-          if (res.status === 200) {
-            console.log("mxm :" + res.data.count);
-            this.setState({fame: res.data.count});
-          }
-        } catch (e) {
-          console.log("at here " + e.message || e);
-        }
       }
     
       getLiked = async () => {
@@ -128,22 +89,50 @@ class Search extends React.Component {
       getSugg = async () => {
 
         if (this.state.AgeGap == '' || this.state.mylocation == '' || this.state.biography == ''|| this.state.sort == ''){
-            alert("Fields cant be left empty");
-        } else {
-            try {
-                const res = await axios.get('http://localhost:3001/search?mylocation=' + this.state.mylocation + '&biography=' + this.state.biography + '&birthdate=' + this.state.AgeGap + '&sortby=' + this.state.sort );
-          
-                if (res.status === 200) {
-                  console.log('Response:', res.data);
-                  this.setState({
-                    suggestions: res.data
-                  });
-                }
-              } catch (e) {
-                console.log("Sugg error " + e.message || e);
-                this.props.history.push('/profile');
+          alert("Fields cant be left empty");
+      } else if (this.state.sort == 'date_part') {
+          try {
+              const res = await axios.get('http://localhost:3001/searchage?mylocation=' + this.state.mylocation + '&biography=' + this.state.biography + '&birthdate=' + this.state.AgeGap  );
+        
+              if (res.status === 200) {
+                console.log('Response: date', res.data);
+                this.setState({
+                  suggestions: res.data
+                });
               }
+            } catch (e) {
+              console.log("Sugg error " + e.message || e);
+              this.props.history.push('/profile');
+            }
+      } else if (this.state.sort == 'biography') {
+        try {
+            const res = await axios.get('http://localhost:3001/searchbio?mylocation=' + this.state.mylocation + '&biography=' + this.state.biography + '&birthdate=' + this.state.AgeGap  );
+      
+            if (res.status === 200) {
+              console.log('Response: bio', res.data);
+              this.setState({
+                suggestions: res.data
+              });
+            }
+          } catch (e) {
+            console.log("Sugg error " + e.message || e);
+            this.props.history.push('/profile');
+          }
+    } else if (this.state.sort == 'mylocation') {
+      try {
+          const res = await axios.get('http://localhost:3001/searchlocat?mylocation=' + this.state.mylocation + '&biography=' + this.state.biography + '&birthdate=' + this.state.AgeGap  );
+    
+          if (res.status === 200) {
+            console.log('Response: loc', res.data);
+            this.setState({
+              suggestions: res.data
+            });
+          }
+        } catch (e) {
+          console.log("Sugg error " + e.message || e);
+          this.props.history.push('/profile');
         }
+  }
       }
     
       getMatched = async () => {
@@ -225,15 +214,15 @@ class Search extends React.Component {
                        {
                            suggestions.map(
                            suggestion => <div className="browseProfcontainer">
-                                <span className="BrowseProfSpan">Username: {username}</span>
-                                <span className="BrowseProfSpan">First Name: {firstName}</span>
-                                <span className="BrowseProfSpan">Last Name: {lastName}</span>
-                                <span className="BrowseProfSpan">Gender: {gender}</span>
-                                <span className="BrowseProfSpan">Sexuality: {sexuality}</span>
-                                <span className="BrowseProfSpan">Biography: {biography}</span>
-                                <span className="BrowseProfSpan">My Location: {mylocation}</span>
-                                <span className="BrowseProfSpan">Fame: {fame}</span>
-                                <span className="BrowseProfSpan">Birthdate: {birthdate.split('T')[0]}</span>
+                                <span className="searchSpan">Username: {suggestion.username}</span>
+                                <span className="searchSpan">First Name: {suggestion.first_name}</span>
+                                <span className="searchSpan">Last Name: {suggestion.last_name}</span>
+                                <span className="searchSpan">Gender: {suggestion.gender}</span>
+                                <span className="searchSpan">Sexuality: {suggestion.sexuality}</span>
+                                <span className="searchSpan">Biography: {suggestion.biography}</span>
+                                <span className="searchSpan">My Location: {suggestion.mylocation}</span>
+                                <span className="searchSpan">Fame: {fame}</span>
+                                <span className="searchSpan">Birthdate: {suggestion.birthdate.split('T')[0]}</span>
                             {
                               this.state.matched
                               ? <button className="BrowseProfbutt" onClick={this.onUnlikeUser}>Unmatch</button>

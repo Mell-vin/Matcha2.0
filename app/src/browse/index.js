@@ -50,9 +50,9 @@ class Browse extends React.Component {
         {
           suggestions.map(
             suggestion => <div className="sugg" key={suggestion.username}>
-              <span className="BrowseSpan">Firstname: {suggestion.firstName}</span>
+              <span className="BrowseSpan">Username: {suggestion.firstName}</span>
+              <span className="BrowseSpan">Firstname: {suggestion.username}</span>
               <span className="BrowseSpan">Lastname: {suggestion.lastName}</span>
-              <span className="BrowseSpan">Username: {suggestion.username}</span>
               <span className="BrowseSpan">Gender: {suggestion.gender}</span>
               <span className="BrowseSpan">Sexuality: {suggestion.sexuality}</span>
               <Link to={"/profile/" + suggestion.userId} >

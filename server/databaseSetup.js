@@ -71,7 +71,9 @@ module.exports = {
     create: sql('./sql/user_profiles/create.sql'),
     select: sql('./sql/user_profiles/select.sql'),
     update: sql('./sql/user_profiles/update.sql'),
-    search: sql('./sql/user_profiles/search.sql'),
+    searchDate: sql('./sql/user_profiles/searchDate.sql'),
+    searchLocat: sql('./sql/user_profiles/searchLocat.sql'),
+    searchBio: sql('./sql/user_profiles/searchBio.sql'),
   },
   dbLikes: {
     create: sql('./sql/likes/create.sql'),
