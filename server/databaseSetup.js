@@ -70,11 +70,13 @@ module.exports = {
     create: sql('./sql/user_profiles/create.sql'),
     select: sql('./sql/user_profiles/select.sql'),
     update: sql('./sql/user_profiles/update.sql'),
+    search: sql('./sql/user_profiles/search.sql'),
   },
   dbLikes: {
     create: sql('./sql/likes/create.sql'),
     select: sql('./sql/likes/select.sql'),
-    remove: sql('./sql/likes/remove.sql')
+    remove: sql('./sql/likes/remove.sql'),
+    fame: sql('./sql/likes/fame.sql'),
   },
   dbMatches: {
     create: sql('./sql/matches/create.sql'),

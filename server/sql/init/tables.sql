@@ -100,8 +100,16 @@ CREATE TABLE IF NOT EXISTS user_profiles (
   gender_id INT NOT NULL,
   sexuality_id INT NOT NULL,
   biography VARCHAR(400),
+  LatLong POINT NOT NULL,
+  mylocation VARCHAR(100) NOT NULL,
   birthdate DATE NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (gender_id) REFERENCES genders(id) ON DELETE CASCADE,
   FOREIGN KEY (sexuality_id) REFERENCES sexualities(id) ON DELETE CASCADE
 );
+
+ALTER TABLE user_profiles
+ADD IF NOT EXISTS mylocation VARCHAR(100) NOT NULL DEFAULT 'HIDDEN',
+ADD IF NOT EXISTS latitude FLOAT NOT NULL DEFAULT '0.00',
+ADD IF NOT EXISTS longitude FLOAT NOT NULL DEFAULT '0.00'
+;

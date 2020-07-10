@@ -409,6 +409,7 @@ app.put('/email', async (req, res) => {
 /* Verify email */
 
 app.post('/verifyme', async (req, res) => {
+
   try {
     const toVerify = jwt.verify(req.body.username, process.env.jwtSecret);
     console.log(toVerify);
@@ -510,6 +511,38 @@ app.post('/forgotreset', async (req, res) => {
     res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
 
     return;
+  }
+});
+
+app.get('/search', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(403).send();
+
+    return;
+  }
+
+  
+  try {
+    const profile = await db.any(dbUserProfiles.search,
+      [
+        req.query.mylocation,
+        req.query.biography,
+        req.query.birthdate,
+        req.query.sort,
+      ]
+      );
+
+    if (profile === null) {
+      res.status(400).send();
+
+      return;
+    }
+
+    res.status(200).json(profile);
+
+    return;
+  } catch (e) {
+    console.log('Error retrieving user profile: ' + e.message || e);
   }
 });
 
@@ -677,7 +710,10 @@ app.put('/profile', async (req, res) => {
         userData.gender_id,
         userData.sexuality_id,
         userData.biography,
-        userData.birthdate
+        userData.birthdate,
+        userData.mylocation,
+        userData.latitude,
+        userData.longitude
       ]
     );
 
@@ -918,6 +954,43 @@ app.get('/likes', async (req, res) => {
     return;
   } catch (e) {
     console.log('Error getting likes: ' + e.message || e);
+
+    res.status(500).json({
+      message: 'Unfortunately we are experiencing technical difficulties right now'
+    });
+
+    return;
+  }
+});
+
+app.get('/fame', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(403).send();
+    console.log("forohthree");
+    return;
+  }
+
+  try {
+    const fameCount = await db.oneOrNone(
+      dbLikes.fame,
+      [
+        req.query.userId
+      ]
+    );
+
+    if (fameCount !== null) {
+      console.log("Fame count null");
+      res.status(200).send(fameCount);
+
+      return;
+    }
+    console.log("forohoh");
+    res.status(400).send();
+
+    return;
+  } catch (e) {
+    console.log("you swallow");
+    console.log('Error getting Fame: ' + e.message || e);
 
     res.status(500).json({
       message: 'Unfortunately we are experiencing technical difficulties right now'

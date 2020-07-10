@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../myCSS/editInterests.css';
 
 class EditInterests extends React.Component {
   constructor(props) {
@@ -79,13 +80,13 @@ class EditInterests extends React.Component {
     } = this.state;
 
     return (
-      <div>
-        <h1>EditInterests Component</h1>
-        <label>
-          <b>Your Interests:</b>
+      <div className="IntCont">
+        <h1 >Edit Interests:</h1>
+        <label className="IntSpan">
+          <b className="IntSpan">Your Interests:</b>
           {
             interests.length > 0 && userInterests.length > 0 && userInterests.map((interest) => (
-                <button
+                <button className="Intbutt"
                   key={interest.interest_id}
                   value={interest.interest_id}
                   onClick={this.onRemoveInterest}
@@ -95,13 +96,12 @@ class EditInterests extends React.Component {
             ))
           }
         </label>
-        <br />
 
-        <label>
-          <b>Interests:</b>
+        <label className="IntSpan">
+          <b>Choose Interests:</b>
           {
             interests.length > 0 && interests.map((interest) => (
-                <button
+                <button className="Intbutt"
                   key={interest.id}
                   value={interest.id}
                   onClick={this.onAddInterest}
@@ -111,7 +111,6 @@ class EditInterests extends React.Component {
             ))
           }
         </label>
-        <br />
       </div>
     );
   }

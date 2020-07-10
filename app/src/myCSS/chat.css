@@ -1,0 +1,74 @@
+
+.textPart {
+    height: fit-content;
+}
+
+.ChatCont {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr .6fr 1fr;
+    width: 45vw;
+    min-width: 360px;
+    height: auto;
+    margin-top: 10vh;
+    margin-bottom: 3vh;
+    border-radius: 1vh;
+    border: .2vh solid white;
+    box-shadow: 5px 7px 20px rgb(173, 173, 173)
+}
+
+.ChatSpan {
+    font-size: 2.5vw;
+    text-shadow: 1px 1px 10px rgb(149, 149, 149);
+    color: rgb(70, 70, 70);
+    border: .2vh solid rgb(26, 25, 25);
+}
+.chatMsg {
+    color: white;
+    margin-left: 2vw;
+    font-size: 2.5vw;
+}
+
+.chatMsgDate {
+    color: rgb(42, 42, 42);
+    margin-left: 10vw;
+    font-size: 2vw;
+}
+
+.edit:hover {
+    color: black;
+    background-color: white;
+    border-bottom: .2vh solid black;
+    text-shadow: 1px 1px 5px rgb(92, 88, 88);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+}
+
+.textInput {
+    height: fit-content;
+    margin: auto;
+    width: 75%;
+    background-color: tomato;
+    color: black;
+    font-size: 2vw;
+}
+
+.ChatSplit {
+    border-bottom: .6vh solid white;
+}
+
+.Chatbutt {
+    background-color: black;
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 2vh;
+    box-shadow: 5px 7px 20px rgb(255, 255, 255)
+}
+
+.Chatbutt:hover {
+    color: black;
+    background-color: white;
+    text-shadow: 1px 1px 10px rgb(0, 0, 0);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgb(255, 255, 255);
+}

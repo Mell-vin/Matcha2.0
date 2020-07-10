@@ -18,6 +18,45 @@
     border: .2vh solid rgb(26, 25, 25);
 }
 
+#SearchItem {
+    border-left: .4vh solid white;
+    border-right: .4vh solid white;
+    border-radius: 2vh;
+    font-size: 3vh;
+    width: 90%;
+    color: rgb(97, 97, 97);
+    background-color: rgb(26, 26, 26);
+}
+
+.BottomLeft {
+    display: grid;
+    grid-template-rows:1fr 1fr 1fr;
+    font-size: 3vh;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.SearchItemBlock {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+    border-radius: 2vh;
+    font-size: 3vh;
+    color: white;
+    background-color: rgb(26, 26, 26);
+}
+
+.BrowseContRight {
+    border: 1vh solid white;
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    height: 30vh;
+    width: 40vw;
+    margin-top: 6vh;
+    border-radius: 1vh;
+    box-shadow: 5px 7px 20px rgb(255, 255, 255);
+}
+
 .BrowseProfbutt {
     background-color: black;
     color: white;

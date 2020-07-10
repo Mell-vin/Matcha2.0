@@ -22,6 +22,9 @@ class Header extends React.Component {
           <Link to='/matches'>
             <button className="butt">Matches</button>
           </Link>
+          <Link to='/search'>
+            <button className="butt">Search</button>
+          </Link>
           </div>
         </div>
       )

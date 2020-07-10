@@ -20,11 +20,13 @@ class BrowseProfile extends React.Component {
       sexuality: '',
       biography: '',
       birthdate: '',
+      mylocation: '',
+      longitude: '',
+      fame: '0',
     }
   }
 
   componentDidMount() {
-    console.log('props', this.props);
 
     const { match: { params }} = this.props;
 
@@ -40,7 +42,9 @@ class BrowseProfile extends React.Component {
     try {
       const res = await axios.get('http://localhost:3001/block?userId=' + this.state.userId);
 
-      console.log('blocked:', res);
+      if (res.status === 200){
+        console.log('blocked:', res);
+      }
     } catch (e) { console.log(e.message || e); }
   }
 
@@ -60,13 +64,28 @@ class BrowseProfile extends React.Component {
     try {
       const res = await axios.get('http://localhost:3001/profile?userId=' + this.state.userId);
 
+      if (res.status === 200) {
       this.setState({
         gender: res.data.gender,
         sexuality: res.data.sexuality,
         biography: res.data.biography,
         birthdate: res.data.birthdate,
+        mylocation: res.data.mylocation,
+        latitude: res.data.latitude,
+        longitude: res.data.longitude,
       });
+    }
     } catch (e) { console.log(e.message || e); }
+    try {
+      const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
+
+      if (res.status === 200) {
+        console.log("mxm :" + res.data.count);
+        this.setState({fame: res.data.count});
+      }
+    } catch (e) {
+      console.log("at here " + e.message || e);
+    }
   }
 
   getLiked = async () => {
@@ -89,6 +108,16 @@ class BrowseProfile extends React.Component {
         await this.getMatched();
       }
     } catch (e) { console.log(e.message || e); }
+    try {
+      const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
+
+      if (res.status === 200) {
+        console.log("mxm :" + res.data.count);
+        this.setState({fame: res.data.count});
+      }
+    } catch (e) {
+      console.log("at here " + e.message || e);
+    }
   }
 
   onUnlikeUser = async () => {
@@ -103,6 +132,16 @@ class BrowseProfile extends React.Component {
         });
       }
     } catch (e) { console.log(e.message || e); }
+    try {
+      const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
+
+      if (res.status === 200) {
+        console.log("mxm :" + res.data.count);
+        this.setState({fame: res.data.count});
+      }
+    } catch (e) {
+      console.log("at here " + e.message || e);
+    }
   }
 
   getMatched = async () => {
@@ -137,16 +176,21 @@ class BrowseProfile extends React.Component {
       sexuality,
       biography,
       birthdate,
+      mylocation,
+      fame,
     } = this.state;
 
     return (
       <div className="browseProfcontainer">
+        
         <span className="BrowseProfSpan">Username: {username}</span>
         <span className="BrowseProfSpan">First Name: {firstName}</span>
         <span className="BrowseProfSpan">Last Name: {lastName}</span>
         <span className="BrowseProfSpan">Gender: {gender}</span>
         <span className="BrowseProfSpan">Sexuality: {sexuality}</span>
         <span className="BrowseProfSpan">Biography: {biography}</span>
+        <span className="BrowseProfSpan">My Location: {mylocation}</span>
+        <span className="BrowseProfSpan">Fame: {fame}</span>
         <span className="BrowseProfSpan">Birthdate: {birthdate.split('T')[0]}</span>
         {
           this.state.matched

@@ -9,12 +9,16 @@ class Browse extends React.Component {
     super(props);
 
     this.state = {
-      suggestions: []
+      suggestions: [],
+      AgeGap: '',
+      Interests: '',
+      userId: '',
     }
   }
 
   componentDidMount() {
     this.getSuggestedProfiles();
+    //this.getFame();
   }
 
   getSuggestedProfiles = async () => {
@@ -28,18 +32,20 @@ class Browse extends React.Component {
         });
       }
     } catch (e) {
-      console.log(e.message || e);
+      console.log("Sugg error " + e.message || e);
       this.props.history.push('/profile');
     }
   }
 
   render() {
     const {
-      suggestions
+      suggestions,
+      fame,
     } = this.state;
 
     return (
-      <div className="BrowseCont">
+      <div className="PageCont">
+        <div className="BrowseCont">
         <h3>Suggestions</h3>
         {
           suggestions.map(
@@ -56,6 +62,7 @@ class Browse extends React.Component {
             </div>
           )
         }
+        </div>
       </div>
     );
   }

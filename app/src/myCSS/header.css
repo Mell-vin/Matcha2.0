@@ -1,9 +1,9 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    color: white;
-    width: 100vw;
+    color: #ffffff;
+    width: 98vw;
     margin-top: 1vh;
     margin-left: 0;
     height: 4vh;

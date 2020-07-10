@@ -1,4 +1,5 @@
 - email verification
 - notification function & page
-- all location shit
-- advanced search page.
+- search, filter and sort for both suggestions and research page
+- forgot password and all password things
+- consultations and fame rating
