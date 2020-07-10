@@ -90,8 +90,11 @@ class Registration extends React.Component {
       }
     )
     .then((res) => {
-      if (res.status === 201)
+      if (res.status === 201) 
+      {
+        alert("Check email inbox to verify");
         this.props.history.push('/login');
+      }
     })
     .catch((e) => {
       console.log(e.message || e);

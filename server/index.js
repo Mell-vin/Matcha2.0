@@ -412,9 +412,9 @@ app.post('/verifyme', async (req, res) => {
 
   try {
     const toVerify = jwt.verify(req.body.username, process.env.jwtSecret);
-    console.log(toVerify);
+    // console.log(toVerify);
     const verifyEmail = toVerify.email;
-    console.log(verifyEmail);
+    // console.log(verifyEmail);
 
     await db.none(dbUsers.verify, verifyEmail,);
 
@@ -441,7 +441,7 @@ app.post('/forgotpassword', async (req, res) => {
 
   const userData = req.body;
 
-  console.log('userdata', userData);
+  // console.log('userdata', userData);
 
   try {     
     if (Validation.isValidEmail(userData.email))
@@ -449,7 +449,7 @@ app.post('/forgotpassword', async (req, res) => {
 
       const email = await db.oneOrNone(dbUsers.validate.email, userData.email);
 
-      console.log('response: ', email);
+      // console.log('response: ', email);
 
       if (email.count == '1')
       {
@@ -483,9 +483,9 @@ app.post('/forgotpassword', async (req, res) => {
 app.post('/forgotreset', async (req, res) => {
   try {
     const toVerify = jwt.verify(req.body.username, process.env.jwtSecret);
-    console.log(toVerify);
+    // console.log(toVerify);
     const verifyEmail = toVerify.email;
-    console.log(verifyEmail);
+    // console.log(verifyEmail);
     const userData = req.body;
     if (Validation.isValidPassword(userData.password))
     {

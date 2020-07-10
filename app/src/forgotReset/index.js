@@ -32,10 +32,10 @@ class ForgotReset extends React.Component {
                                 password: this.state.password
                             }
                         );
-        
+                        if (res.status === 400) {
+                            alert('Invalid password');
+                        }        
                         if (res.status === 200) {
-                            // this.props.onSetPwd(this.state.password);
-                            // this.props.onUserLogout();
                             this.props.history.push('/login');
                         }
                     } catch (e) { console.log(e.message || e); }
