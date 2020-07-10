@@ -3,28 +3,39 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../myCSS/changePwd.css';
 
-class ChangePassword extends React.Component {
+class ForgotReset extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            username: '',
             newpassword: '',
             password: '',
         }
     }       
 
-            onChangePwd = async () => {
+            onResetPwd = async () => {
                 if (this.state.newpassword == this.state.password) 
-                {   
+                {
+                    const queryString = window.location.search;
+                    // console.log(queryString);
+                    const urlParams = new URLSearchParams(queryString);
+                    // console.log(urlParams);
+                    const verifytoken = urlParams.get('token')
+                    // console.log(verifytoken);
+                    this.setState({username: verifytoken});
                     try {
                         const res = await axios.post(
-                            'http://localhost:3001/password',
-                            { password: this.state.password }
+                            'http://localhost:3001/forgotreset',
+                            { 
+                                username: this.state.username,
+                                password: this.state.password
+                            }
                         );
         
                         if (res.status === 200) {
-                            this.props.onSetPwd(this.state.password);
-                            this.props.onUserLogout();
+                            // this.props.onSetPwd(this.state.password);
+                            // this.props.onUserLogout();
                             this.props.history.push('/login');
                         }
                     } catch (e) { console.log(e.message || e); }
@@ -62,10 +73,10 @@ class ChangePassword extends React.Component {
                         }
                     ></input>
                 </label>
-                <button className="changeEmailbutt" onClick={this.onChangePwd} >Submit</button>
+                <button className="changeEmailbutt" onClick={this.onResetPwd} >Submit</button>
             </div>
         );
     }
 }
 
-export default withRouter(ChangePassword);
+export default withRouter(ForgotReset);

@@ -35,6 +35,9 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.4.10",
     "emailjs-com": "^2.4.1",
     "react-geolocated": "^3.0.1",
     "react-router": "^5.1.2",

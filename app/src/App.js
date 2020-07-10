@@ -18,7 +18,11 @@ import BrowseProfile from './browseProfile';
 import Matches from './matches';
 import Chat from './chat';
 import Header from './header';
+import Verifyme from './verifyme';
+import ForgotPassword from './forgotPassword';
+import ForgotReset from './forgotReset';
 import Search from './search/search';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -104,6 +108,10 @@ class App extends React.Component {
 
   onSetEmail = (email) => {
     this.setState({ email: email });
+  }  
+  
+  onSetPwd = (password) => {
+    this.setState({ password: password });
   }
 
   onSetProfileInfo = (profileInfo) => {
@@ -169,7 +177,10 @@ class App extends React.Component {
               onUserLogout={this.onUserLogout}
             />
           } />
+          <Route exact path='/forgotPassword' component={ForgotPassword} />
+          <Route exact path='/forgotReset' component={ForgotReset} />
           <Route exact path='/registration' component={Registration} />
+          <Route exact path='/verifyme' component={Verifyme} />
           <AuthRoute exact path='/profile' isAuthenticated={isAuthenticated}
             component={
               () => <UserProfile
@@ -206,10 +217,21 @@ class App extends React.Component {
               () => <ChangeEmail
                 email={email}
                 onSetEmail={this.onSetEmail}
+                onUserLogout={this.onUserLogout}
               />
             }
           />
-          <AuthRoute exact path='/password' isAuthenticated={isAuthenticated} component={ChangePassword} />
+          <AuthRoute exact path='/password' isAuthenticated={isAuthenticated}
+            component={
+              () => <ChangePassword
+                newpassword={''}
+                password={''}
+                onSetPwd={this.onSetPwd}
+                onUserLogout={this.onUserLogout}
+              />
+            }
+          />
+          {/* <AuthRoute exact path='/password' isAuthenticated={isAuthenticated} component={ChangePassword} /> */}
           <AuthRoute exact path='/edit-interests' isAuthenticated={isAuthenticated} component={EditInterests} />
           <AuthRoute exact path='/edit-images' isAuthenticated={isAuthenticated} component={EditImages} />
           <AuthRoute exact path='/browse' isAuthenticated={isAuthenticated} component={Browse} />

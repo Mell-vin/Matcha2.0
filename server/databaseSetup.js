@@ -1,6 +1,7 @@
 const pgp = require('pg-promise')();
 const QueryFile = require('pg-promise').QueryFile;
 const path = require('path');
+const { seedmatcha } = require('./seed');
 const db = pgp('postgres://postgres:postgres@127.0.0.1:5432/matcha_db');
 
 db.connect();
@@ -28,13 +29,17 @@ function sql(file) {
   }
 
   console.log('Populating tables...');
+  await seedmatcha.seedInterests();
   try {
     await db.none(sql('./sql/init/populate.sql'));
   } catch (e) {
     console.log('Error populating tables: ' + e.message || e);
   }
+  await seedmatcha.seedusers();
+  // await seedmatcha.seeduserProfiles();
+  // await seedmatcha.seedUserInterests();
 
-  console.log('Database created\n');
+  console.log('Database created and seeded\n');
 })();
 
 module.exports = {
@@ -49,6 +54,8 @@ module.exports = {
     updateEmail: sql('./sql/users/updateEmail.sql'),
     updatePassword: sql('./sql/users/updatePwd.sql'),
     authenticate: sql('./sql/users/authenticate.sql'),
+    verify: sql('./sql/users/verify.sql'),
+    resetpassword: sql('./sql/users/resetpassword.sql'),
     validate: {
       username: sql('./sql/users/validate/username.sql'),
       email: sql('./sql/users/validate/email.sql'),

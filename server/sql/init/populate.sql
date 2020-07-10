@@ -1,24 +1,24 @@
 -- Create dummy users
-INSERT INTO users (username, first_name, last_name, email, hashed_password)
+INSERT INTO users (username, first_name, last_name, email, hashed_password, verfified)
 VALUES
-    ('hetmal', 'Hetero', 'Male', 'hetmal@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd'),
-    ('hetfem', 'Hetero', 'Female', 'hetfem@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd'),
-    ('hommal', 'Homo', 'Male', 'hommal@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd'),
-    ('homfem', 'Homo', 'Female', 'homfem@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd'),
-    ('bimal', 'Bi', 'Male', 'bimal@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd'),
-    ('bifem', 'Bi', 'Female', 'bifem@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd');
+    ('hetmal', 'Hetero', 'Male', 'hetmal@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd', true),
+    ('hetfem', 'Hetero', 'Female', 'hetfem@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd', true),
+    ('hommal', 'Homo', 'Male', 'hommal@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd', true),
+    ('homfem', 'Homo', 'Female', 'homfem@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd', true),
+    ('bimal', 'Bi', 'Male', 'bimal@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd', true),
+    ('bifem', 'Bi', 'Female', 'bifem@email.com', '19513fdc9da4fb72a4a05eb66917548d3c90ff94d5419e1f2363eea89dfee1dd', true);
 
 -- Create preference data
-INSERT INTO genders (gender)
+INSERT INTO genders (id, gender)
 VALUES
-    ('Male'),
-    ('Female');
+    (1, 'Male'),
+    (2, 'Female');
 
-INSERT INTO sexualities (sexuality)
+INSERT INTO sexualities (id, sexuality)
 VALUES
-    ('Heterosexual'),
-    ('Homosexual'),
-    ('Bisexual');
+    (1, 'Heterosexual'),
+    (2, 'Homosexual'),
+    (3, 'Bisexual');
 
 -- Give users preferences
 INSERT INTO user_profiles (user_id, gender_id, sexuality_id, biography, birthdate)
