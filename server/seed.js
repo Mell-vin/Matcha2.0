@@ -32,11 +32,11 @@ class seedmatcha
                 birthdate: faker.date.between('1980-01-01', '2002-06-01'),
             }
             let userseed3 = {
-                interest1: faker.random.number(({min:1, max:6})),
-                interest2: faker.random.number(({min:104, max:132})),
-                interest3: faker.random.number(({min:143, max:163})),
-                interest4: faker.random.number(({min:164, max:184})),
-                interest5: faker.random.number(({min:185, max:208}))
+                interest1: faker.random.number(({min:1, max:58})),
+                // interest2: faker.random.number(({min:104, max:132})),
+                // interest3: faker.random.number(({min:143, max:163})),
+                // interest4: faker.random.number(({min:164, max:184})),
+                // interest5: faker.random.number(({min:185, max:208}))
             }
 
             randos.push(userseed1);
@@ -120,33 +120,33 @@ class seedmatcha
     //     }
     // }
 
-    static async seedInterests()
-    {
-        let randos = [];
+    // static async seedInterests()
+    // {
+    //     let randos = [];
 
-        for(let i = 4; i < 105; i++) {
-            let userseed = {
-                i1: faker.address.country(),
-                i2: faker.commerce.product(),
-                i3: faker.company.catchPhraseNoun(),
-                i4: faker.commerce.color(),
-                i5: faker.hacker.noun(),
-            }
-            randos.push(userseed);
-            const statement = 'INSERT INTO interests (id, interest) VALUES ($1, $2)';
-            const values = [
-                i+100,
-                faker.random.objectElement(userseed)
-            ];
-            try {
-                const res = await db.query(statement, values);
-                // console.log(userseed.username);
-                // console.log('user '+userseed.username+' '+userseed.first_name+' '+userseed.last_name+' added'); 
-            } catch (err) {
-                // console.log(err.message);
-            }
-        }
-    }
+    //     for(let i = 4; i < 105; i++) {
+    //         let userseed = {
+    //             i1: faker.address.country(),
+    //             i2: faker.commerce.product(),
+    //             i3: faker.company.catchPhraseNoun(),
+    //             i4: faker.commerce.color(),
+    //             i5: faker.hacker.noun(),
+    //         }
+    //         randos.push(userseed);
+    //         const statement = 'INSERT INTO interests (id, interest) VALUES ($1, $2)';
+    //         const values = [
+    //             i+100,
+    //             faker.random.objectElement(userseed)
+    //         ];
+    //         try {
+    //             const res = await db.query(statement, values);
+    //             // console.log(userseed.username);
+    //             // console.log('user '+userseed.username+' '+userseed.first_name+' '+userseed.last_name+' added'); 
+    //         } catch (err) {
+    //             // console.log(err.message);
+    //         }
+    //     }
+    // }
 
     // static async seedUserInterests()
     // {
