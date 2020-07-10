@@ -30,7 +30,7 @@ class Login extends React.Component {
       }
     } catch (e) {
       console.log(e.message || e);
-      alert("Credential error. Try again :(");
+      alert("Credential error or unverified. Try again or check email:(");
     }
   }
 
