@@ -18,6 +18,9 @@ import BrowseProfile from './browseProfile';
 import Matches from './matches';
 import Chat from './chat';
 import Header from './header';
+import Verifyme from './verifyme';
+import ForgotPassword from './forgotPassword';
+import ForgotReset from './forgotReset';
 
 class App extends React.Component {
   constructor(props) {
@@ -166,7 +169,10 @@ class App extends React.Component {
               onUserLogout={this.onUserLogout}
             />
           } />
+          <Route exact path='/forgotPassword' component={ForgotPassword} />
+          <Route exact path='/forgotReset' component={ForgotReset} />
           <Route exact path='/registration' component={Registration} />
+          <Route exact path='/verifyme' component={Verifyme} />
           <AuthRoute exact path='/profile' isAuthenticated={isAuthenticated}
             component={
               () => <UserProfile
@@ -201,6 +207,7 @@ class App extends React.Component {
               () => <ChangeEmail
                 email={email}
                 onSetEmail={this.onSetEmail}
+                onUserLogout={this.onUserLogout}
               />
             }
           />

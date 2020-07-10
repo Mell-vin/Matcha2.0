@@ -4,7 +4,9 @@ const cors = require('cors');
 const sha256 = require('js-sha256');
 const multer = require('multer');
 const fs = require('fs');
-const verifyAccount = require('./mailRoom');
+const { mailroom } = require('./mailRoom');
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 var upload = multer({ dest: 'resources/images/' });
 
@@ -27,6 +29,7 @@ const {
 } = require('./databaseSetup');
 
 const { Validation } = require('./validation/validation');
+// const { default: forgotPassword } = require('../app/src/forgotPassword');
 
 const app = express();
 const port = 3001;
@@ -98,7 +101,7 @@ app.post('/registration', async (req, res) => {
         hashedPassword
       ]
     );
-    verifyAccount(userData.email);
+    mailroom.verifyAccount(userData.email);
     res.status(201).json({ userId: user.id });
 
     return;
@@ -299,6 +302,8 @@ app.get('/email', async (req, res) => {
     return;
   }
 });
+ 
+/* Email change */
 
 app.put('/email', async (req, res) => {
   if (!req.session.userId) {
@@ -310,43 +315,50 @@ app.put('/email', async (req, res) => {
   const userData = req.body;
 
   console.log('userdata', userData);
+  if (Validation.isValidEmail(userData.email))
+  {
+    try {
+      const email = await db.oneOrNone(dbUsers.validate.email, userData.email);
 
-  try {
-    const email = await db.oneOrNone(dbUsers.validate.email, userData.email);
+      console.log('response: ', email);
 
-    console.log('response: ', email);
+      if (email.count !== '0') {
+        res.status(400).send();
 
-    if (email.count !== '0') {
-      res.status(400).send();
+        return;
+      }
+    } catch (e) {
+      console.log('Error validating email address: ' + e.message || e);
+
+      res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
 
       return;
     }
-  } catch (e) {
-    console.log('Error validating email address: ' + e.message || e);
 
-    res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
+    try {
+      await db.none(
+        dbUsers.updateEmail,
+        [
+          req.session.userId,
+          userData.email,
+        ]
+      );
 
-    return;
+      res.status(200).send();
+
+      return;
+    } catch (e) {
+      console.log('Error updating email address: ' + e.message || e);
+
+      res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
+
+      return;
+    }
   }
-
-  try {
-    await db.none(
-      dbUsers.updateEmail,
-      [
-        req.session.userId,
-        userData.email,
-      ]
-    );
-
-    res.status(200).send();
-
-    return;
-  } catch (e) {
-    console.log('Error updating email address: ' + e.message || e);
-
-    res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
-
-    return;
+  else
+  {
+    // invalid email format
+    res.status(400).send();
   }
 });
 
@@ -364,21 +376,100 @@ app.put('/email', async (req, res) => {
   console.log('userdata', userData);
   console.log('userdata', req.session.userId);
   console.log('userdata', hashedPassword);
-  try {
-    
-    await db.none(
-      dbUsers.updatePassword,
-      [
-        req.session.userId,
-        hashedPassword
-      ]
-    );
+  if (Validation.isValidPassword(userData.password))
+  {
+    try {
+      
+      await db.none(
+        dbUsers.updatePassword,
+        [
+          req.session.userId,
+          hashedPassword
+        ]
+      );
 
-    res.status(200).send(); 
+      res.status(200).send(); 
+
+      return;
+    } catch (e) {
+      console.log('Error updating password: ' + e.message || e);
+
+      res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
+
+      return;
+    }
+  }
+  else
+  {
+    //invalid password
+    res.status(400).send();
+  }
+});
+
+/* Verify email */
+
+app.post('/verifyme', async (req, res) => {
+  try {
+    const toVerify = jwt.verify(req.body.username, process.env.jwtSecret);
+    console.log(toVerify);
+    const verifyEmail = toVerify.email;
+    console.log(verifyEmail);
+
+    await db.none(dbUsers.verify, verifyEmail,);
+
+    res.status(200).send();
+  } catch (err) {
+    console.log(err.message);
+
+    res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
 
     return;
+  }
+
+  // return res.redirect('http://localhost:3001/login');
+});
+
+/* Forgot password email submit */
+
+app.post('/forgotpassword', async (req, res) => {
+  // if (!req.session.userId) {
+  //   res.status(403).send();
+
+  //   return;
+  // }
+
+  const userData = req.body;
+
+  console.log('userdata', userData);
+
+  try {     
+    if (Validation.isValidEmail(userData.email))
+    {
+
+      const email = await db.oneOrNone(dbUsers.validate.email, userData.email);
+
+      console.log('response: ', email);
+
+      if (email.count == '1')
+      {
+        mailroom.resetPasswordreq(userData.email);
+        res.status(200).send();
+      }
+      else
+      {
+        // email not in DB
+        res.status(404).send();
+        return;
+      }
+    }
+    else
+    {
+      //invalid email format
+      res.status(400).send();
+      return;
+    }
   } catch (e) {
-    console.log('Error updating password: ' + e.message || e);
+    console.log('Error validating email address: ' + e.message || e);
 
     res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
 
@@ -386,6 +477,41 @@ app.put('/email', async (req, res) => {
   }
 });
 
+/* Forgot Password Reset */
+
+app.post('/forgotreset', async (req, res) => {
+  try {
+    const toVerify = jwt.verify(req.body.username, process.env.jwtSecret);
+    console.log(toVerify);
+    const verifyEmail = toVerify.email;
+    console.log(verifyEmail);
+    const userData = req.body;
+    if (Validation.isValidPassword(userData.password))
+    {
+      const hashedPassword = sha256(userData.password);
+
+      await db.none(dbUsers.resetpassword, 
+        [
+          verifyEmail,
+          hashedPassword
+        ]
+      );
+
+      res.status(200).send();
+    }
+    else
+    {
+      /* password invalid */
+      res.status(400).send();
+    }
+  } catch (err) {
+    console.log(err.message);
+
+    res.status(500).json({ message: 'Unfortunately we are experiencing technical difficulties right now' });
+
+    return;
+  }
+});
 
 /* Get Suggested Profiles */
 app.get('/suggestions', async (req, res) => {

@@ -3,27 +3,27 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import '../myCSS/changeEmail.css';
 
-class ChangeEmail extends React.Component {
+class ForgotPassword extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = { email: '' }
     }
 
-    componentDidMount() {
-        this.setState({ email: this.props.email });
-    }
+    // componentDidMount() {
+    //     this.setState({ email: this.props.email });
+    // }
 
-    onChangeEmail = async () => {
+    onSubmitEmail = async () => {
         try {
-            const res = await axios.put(
-                'http://localhost:3001/email',
+            const res = await axios.post(
+                'http://localhost:3001/forgotpassword',
                 { email: this.state.email }
             );
 
             if (res.status === 200) {
-                this.props.onSetEmail(this.state.email);
-                this.props.onUserLogout();
+                // this.props.onSetEmail(this.state.email);
+                // this.props.onUserLogout();
                 this.props.history.push('/login');
             }
         } catch (e) { console.log(e.message || e); }
@@ -34,7 +34,7 @@ class ChangeEmail extends React.Component {
             <div>
             <div className="changeEmailCont">
                 <label className="changeEmailSpan">
-                    New Email:
+                    Email:
                     <input
                         value={this.state.email}
                         onChange={
@@ -46,14 +46,14 @@ class ChangeEmail extends React.Component {
                     </input>
                 </label>
                 <br />
-                <button className="changeEmailbutt" onClick={this.onChangeEmail} >Submit</button>
+                <button className="changeEmailbutt" onClick={this.onSubmitEmail} >Submit</button>
             </div>
             </div>
         );
     }
 }
 
-export default withRouter(ChangeEmail);
+export default withRouter(ForgotPassword);
 
 {/*
 app.put('/email', async (req, res) => {

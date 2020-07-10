@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
   id SERIAL NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
-  username VARCHAR(25) NOT NULL UNIQUE,
+  username VARCHAR(255) NOT NULL UNIQUE,
   email VARCHAR(255) NOT NULL UNIQUE,
   hashed_password VARCHAR(256) NOT NULL,
   verified BOOLEAN NOT NULL DEFAULT false,
@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS user_interests (
   user_id INT NOT NULL,
   interest_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (interest_id) REFERENCES users(id) ON DELETE CASCADE,
-  PRIMARY KEY (user_id, interest_id)
+  FOREIGN KEY (interest_id) REFERENCES interests(id) ON DELETE CASCADE,
+  PRIMARY KEY (user_id)
 );
 
 CREATE TABLE IF NOT EXISTS matches (
