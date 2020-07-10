@@ -21,7 +21,9 @@ class ChangePassword extends React.Component {
                             'http://localhost:3001/password',
                             { password: this.state.password }
                         );
-        
+                        if (res.status === 400) {
+                            alert('Invalid password');
+                        }
                         if (res.status === 200) {
                             this.props.onSetPwd(this.state.password);
                             this.props.onUserLogout();
