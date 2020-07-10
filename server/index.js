@@ -314,13 +314,13 @@ app.put('/email', async (req, res) => {
 
   const userData = req.body;
 
-  console.log('userdata', userData);
+  // console.log('userdata', userData);
   if (Validation.isValidEmail(userData.email))
   {
     try {
       const email = await db.oneOrNone(dbUsers.validate.email, userData.email);
 
-      console.log('response: ', email);
+      // console.log('response: ', email);
 
       if (email.count !== '0') {
         res.status(400).send();
@@ -373,9 +373,9 @@ app.put('/email', async (req, res) => {
     return;
   }
 
-  console.log('userdata', userData);
-  console.log('userdata', req.session.userId);
-  console.log('userdata', hashedPassword);
+  // console.log('userdata', userData);
+  // console.log('userdata', req.session.userId);
+  // console.log('userdata', hashedPassword);
   if (Validation.isValidPassword(userData.password))
   {
     try {
