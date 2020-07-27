@@ -12,7 +12,7 @@ class seedmatcha
     {
         let randos = [];
 
-        for(let i = 0; i < 3000; i++) { 
+        for(let i = 0; i < 500; i++) { 
             let userid = faker.random.number({min:7, max:1000000});
             let fname = faker.name.firstName(); 
             let lname = faker.name.lastName(); 
@@ -46,9 +46,9 @@ class seedmatcha
             const statement1 = 'INSERT INTO users (id, first_name, last_name, username, email, hashed_password, verified) VALUES ($1, $2, $3, $4, $5, $6, true)';
             const values1 = [
                 userseed1.id,
-                userseed1.username,
                 userseed1.first_name,
                 userseed1.last_name,
+                userseed1.username,
                 userseed1.email,
                 userseed1.password
             ];
