@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
   biography VARCHAR(400),
   LatLong POINT,
   mylocation VARCHAR(100),
+  iploc VARCHAR(200),
   birthdate DATE NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (gender_id) REFERENCES genders(id) ON DELETE CASCADE,

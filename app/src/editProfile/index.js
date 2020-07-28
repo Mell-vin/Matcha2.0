@@ -45,7 +45,7 @@ class EditProfile extends React.Component {
     .then(data => this.setState({
       mylocation: data.results[5].formatted_address
     }))
-    .catch(error => alert(error))
+    .catch(error => console.log(error))
   }
 
   getCoordinates (position) {

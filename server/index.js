@@ -224,6 +224,30 @@ app.get('/user', async (req, res) => {
   }
 });
 
+/* Update User IPLocation */
+app.put('/iploc', async (req, res) => {
+  if (!req.session.userId) {
+    res.status(403).send();
+    return;
+  }
+
+  try {
+    await db.none(dbUserProfiles.updateiploc, 
+    [
+      req.session.userId,
+      req.body.iploc,
+    ]
+  );
+  // console.log(req.body.iploc);
+  } catch (e) {
+    console.log ('Error validating IPLocation: ' + e.message || e);
+
+    res.status(404).json({ message: 'IPLocation unavailable' });
+
+    return;
+  }
+});
+
 /* Update User Info */
 app.put('/user', async (req, res) => {
   if (!req.session.userId) {
