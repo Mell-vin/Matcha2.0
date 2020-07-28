@@ -17,7 +17,10 @@ class UserProfile extends React.Component {
       latitude: null,
       longitude: null,
       CurrSpot: null,
-      APIKey: 'AIzaSyACQYSgZwbmC1Pz0GN7IOts68IgpyrNsl4'
+      APIKey: 'AIzaSyACQYSgZwbmC1Pz0GN7IOts68IgpyrNsl4',
+      cityName: '',
+      regionCode: '',
+      countryCode: ''
     }; {/* AIzaSyDJQg9ozsmNdLTSnZypV85Id53WB4ceCPc */}
     this.getLocation = this.getLocation.bind(this);
     this.getCoordinates = this.getCoordinates.bind(this);
@@ -47,6 +50,28 @@ class UserProfile extends React.Component {
       longitude: position.coords.longitude
     })
     this.getUserAddress()
+  }
+
+  getGeoIP = async () => {
+    await fetch('https://ipapi.co/json/')
+    .then((response) => response.json())
+    .then(data => this.setState({
+      countryCode: data.country_code,
+      regionCode: data.region_code,
+      cityName: data.city
+    })) 
+    .catch((error) => {
+        console.log(error);
+    });
+
+    try {
+      axios.put(
+        'http://localhost:3001/iploc',
+        {
+          iploc: this.state.cityName + ', ' + this.state.regionCode + ', ' + this.state.countryCode,
+        }
+      );
+    } catch (e) { console.log(e.message || e); }
   }
 
   handleLocationError (error) {
@@ -81,6 +106,7 @@ class UserProfile extends React.Component {
     this.onGetUserInterests();
     this.onGetImages();
     this.getLocation();
+    this.getGeoIP();
   }
 
   onGetInterests = async () => {

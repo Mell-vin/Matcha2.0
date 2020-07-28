@@ -45,7 +45,7 @@ class EditProfile extends React.Component {
     .then(data => this.setState({
       mylocation: data.results[5].formatted_address
     }))
-    .catch(error => alert(error))
+    .catch(error => console.log(error))
   }
 
   getCoordinates (position) {
@@ -53,6 +53,25 @@ class EditProfile extends React.Component {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     })
+  }
+
+  handleLocationError (error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied permission to use location");
+        break;
+      case error.POSITION-UNAVAILABLE:
+        alert("Location info is unavailable");
+        break;
+      case error.TIMEOUT:
+        alert("the request timed out");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred");
+        break;
+      default:
+        alert("An unknown error occurred");
+    }
   }
 
   componentDidMount() {

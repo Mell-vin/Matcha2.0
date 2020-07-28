@@ -71,6 +71,7 @@ module.exports = {
     create: sql('./sql/user_profiles/create.sql'),
     select: sql('./sql/user_profiles/select.sql'),
     update: sql('./sql/user_profiles/update.sql'),
+    updateiploc: sql('/sql/user_profiles/updateiploc.sql'),
     searchDate: sql('./sql/user_profiles/searchDate.sql'),
     searchLocat: sql('./sql/user_profiles/searchLocat.sql'),
     searchBio: sql('./sql/user_profiles/searchBio.sql'),
