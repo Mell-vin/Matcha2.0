@@ -215,35 +215,11 @@ class Search extends React.Component {
                            suggestions.map(
                            suggestion => <div className="browseProfcontainer">
                                 <span className="searchSpan">Username: {suggestion.username}</span>
-                                <span className="searchSpan">First Name: {suggestion.first_name}</span>
-                                <span className="searchSpan">Last Name: {suggestion.last_name}</span>
-                                <span className="searchSpan">Gender: {suggestion.gender}</span>
-                                <span className="searchSpan">Sexuality: {suggestion.sexuality}</span>
-                                <span className="searchSpan">Biography: {suggestion.biography}</span>
                                 <span className="searchSpan">My Location: {suggestion.mylocation}</span>
-                                <span className="searchSpan">Fame: {fame}</span>
                                 <span className="searchSpan">Birthdate: {suggestion.birthdate.split('T')[0]}</span>
-                            {
-                              this.state.matched
-                              ? <button className="BrowseProfbutt" onClick={this.onUnlikeUser(suggestion.user_id)}>Unmatch</button>
-                              : this.state.liked
-                                ? <button className="BrowseProfbutt" onClick={this.onUnlikeUser(suggestion.user_id)}>Unlike</button>
-                                : <button className="BrowseProfbutt" onClick={this.onLikeUser(suggestion.user_id)}>Like</button>
-                            }
-                            {
-                              this.state.matched
-                              ? <Link
-                                to={{
-                                  pathname: '/chat/' + this.state.matchId,
-                                  state: { targetUsername: username },
-                                }}
-                              >
-                                  <button className="BrowseProfbutt">Chat</button>
+                                <Link to={"/profile/" + suggestion.id} >
+                                  <button className="BrowseProfbutt">View Profile</button>
                                 </Link>
-                              : null
-                            }
-                            <button className="BrowseProfbutt" onClick={this.onBlockUser}>Block</button>
-                            <button className="BrowseProfbutt" onClick={this.onReportUser}>Report</button>
                           </div>
                            )
                        } 

@@ -80,7 +80,7 @@ class BrowseProfile extends React.Component {
       const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
 
       if (res.status === 200) {
-        console.log("mxm :" + res.data.count);
+        //console.log("mxm :" + res.data.count);
         this.setState({fame: res.data.count});
       }
     } catch (e) {
@@ -112,7 +112,7 @@ class BrowseProfile extends React.Component {
       const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
 
       if (res.status === 200) {
-        console.log("mxm :" + res.data.count);
+        //console.log("mxm :" + res.data.count);
         this.setState({fame: res.data.count});
       }
     } catch (e) {
@@ -136,7 +136,7 @@ class BrowseProfile extends React.Component {
       const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
 
       if (res.status === 200) {
-        console.log("mxm :" + res.data.count);
+       // console.log("mxm :" + res.data.count);
         this.setState({fame: res.data.count});
       }
     } catch (e) {

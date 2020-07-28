@@ -55,6 +55,25 @@ class EditProfile extends React.Component {
     })
   }
 
+  handleLocationError (error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied permission to use location");
+        break;
+      case error.POSITION-UNAVAILABLE:
+        alert("Location info is unavailable");
+        break;
+      case error.TIMEOUT:
+        alert("the request timed out");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred");
+        break;
+      default:
+        alert("An unknown error occurred");
+    }
+  }
+
   componentDidMount() {
     this.setState({
       username: this.props.username,

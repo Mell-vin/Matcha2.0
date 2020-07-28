@@ -1,5 +1,6 @@
 SELECT
     user_profiles.gender_id,
+    users.id,
     user_profiles.user_id,
     user_profiles.sexuality_id,
     genders.gender,
@@ -21,9 +22,9 @@ FROM (((user_profiles INNER JOIN genders
                     ON users.id = user_profiles.user_id)
 WHERE 
     user_profiles.mylocation ~* $1
-OR  
+AND  
     user_profiles.biography ~* $2
-OR
+AND
 	'2020' - date_part('year', birthdate) >= $3
 ORDER BY
-	user_profiles.biography ASC;
+	user_profiles.biography DESC;
