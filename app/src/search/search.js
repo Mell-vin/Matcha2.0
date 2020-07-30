@@ -10,89 +10,33 @@ class Search extends React.Component {
         this.state = {
             AgeGap: '',
             Fame: '',
-            biography: '',
+            interest_id: '',
             mylocation: '',
             sort: '',
             liked: false,
             matched: false,
             matchId: '',
+            interests: [],
             suggestions: [],
         }
     }
 
-    getBlocked = async (Uid) => {
-        try {
-          const res = await axios.get('http://localhost:3001/block?userId=' + Uid);
-    
-          if (res.status === 200){
-            console.log('blocked:', res);
-          }
-        } catch (e) { console.log(e.message || e); }
-      }
-    
-      getLiked = async (Uid) => {
-        try {
-          const res = await axios.get('http://localhost:3001/likes?userId=' + Uid);
-    
-          if (res.status === 200) {
-            this.setState({ liked: true });
-            await this.getMatched();
-          }
-        } catch (e) { console.log(e.message || e); }
-      }
-    
-      onLikeUser = async (Uid) => {
-        try {
-          const res = await axios.post('http://localhost:3001/like', { targetId: Uid });
-    
-          if (res.status === 200) {
-            this.setState({ liked: true });
-            await this.getMatched();
-          }
-        } catch (e) { console.log(e.message || e); }
-        try {
-          const res = await axios.get('http://localhost:3001/fame?userId=' + Uid);
-    
-          if (res.status === 200) {
-            console.log("mxm :" + res.data.count);
-            this.setState({fame: res.data.count});
-          }
-        } catch (e) {
-          console.log("at here " + e.message || e);
-        }
-      }
-    
-      onUnlikeUser = async (Uid) => {
-        try {
-          const res = await axios.delete('http://localhost:3001/like', { data: { targetId: Uid }});
-    
-          if (res.status == 200) {
-            this.setState({
-              liked: false,
-              matched: false,
-              matchId: '',
-            });
-          }
-        } catch (e) { console.log(e.message || e); }
-        try {
-          const res = await axios.get('http://localhost:3001/fame?userId=' + this.state.userId);
-    
-          if (res.status === 200) {
-            console.log("mxm :" + res.data.count);
-            this.setState({fame: res.data.count});
-          }
-        } catch (e) {
-          console.log("at here " + e.message || e);
-        }
-      }
+    componentDidMount() {
+      this.onGetInterests();
+    }
+
+    InterestSearch = (Iid) => {
+      this.setState({interest_id: Iid});
+    }
 
       getSugg = async () => {
 
-        if (this.state.AgeGap == '' || this.state.mylocation == '' || this.state.biography == ''|| this.state.sort == ''){
+        alert("params are: " + this.state.AgeGap + " " +  this.state.mylocation + " " +  this.state.interest_id + " " +  this.state.sort);
+        if (this.state.AgeGap == '' || this.state.mylocation == '' || this.state.interest_id == ''|| this.state.sort == ''){
           alert("Fields cant be left empty");
       } else if (this.state.sort == 'date_part') {
           try {
-              const res = await axios.get('http://localhost:3001/searchage?mylocation=' + this.state.mylocation + '&biography=' + this.state.biography + '&birthdate=' + this.state.AgeGap  );
+              const res = await axios.get('http://localhost:3001/searchage?mylocation=' + this.state.mylocation + '&interest_id=' + this.state.interest_id + '&birthdate=' + this.state.AgeGap  );
         
               if (res.status === 200) {
                 console.log('Response: date', res.data);
@@ -104,9 +48,9 @@ class Search extends React.Component {
               console.log("Sugg error " + e.message || e);
               this.props.history.push('/profile');
             }
-      } else if (this.state.sort == 'biography') {
+      } else if (this.state.sort == 'interest_id') {
         try {
-            const res = await axios.get('http://localhost:3001/searchbio?mylocation=' + this.state.mylocation + '&biography=' + this.state.biography + '&birthdate=' + this.state.AgeGap  );
+            const res = await axios.get('http://localhost:3001/searchbio?mylocation=' + this.state.mylocation + '&interest_id=' + this.state.interest_id + '&birthdate=' + this.state.AgeGap  );
       
             if (res.status === 200) {
               console.log('Response: bio', res.data);
@@ -120,7 +64,7 @@ class Search extends React.Component {
           }
     } else if (this.state.sort == 'mylocation') {
       try {
-          const res = await axios.get('http://localhost:3001/searchlocat?mylocation=' + this.state.mylocation + '&biography=' + this.state.biography + '&birthdate=' + this.state.AgeGap  );
+          const res = await axios.get('http://localhost:3001/searchlocat?mylocation=' + this.state.mylocation + '&interest_id=' + this.state.interest_id + '&birthdate=' + this.state.AgeGap  );
     
           if (res.status === 200) {
             console.log('Response: loc', res.data);
@@ -173,10 +117,21 @@ class Search extends React.Component {
         this.setState({[name]: val});
     }
 
+    onGetInterests = async () => {
+      try {
+        const res = await axios.get('http://localhost:3001/interests');
+  
+        if (res.status === 200) {
+          this.setState({ interests: res.data });
+        }
+      } catch (e) { console.log(e.message || e); }
+    }
+
     render () {
         const {
             suggestions,
             fame,
+            interests,
           } = this.state;
         return (
             <div>
@@ -189,7 +144,7 @@ class Search extends React.Component {
                                 Location:
                             </div>
                             <div className="BrowseSpan">
-                                Bio:
+                                Interests:
                             </div>
                             <div className="BrowseSpan">
                                 Sort by:
@@ -199,14 +154,24 @@ class Search extends React.Component {
                             <div className="searchItemBlock">
                             <textarea type='text' name='AgeGap' onChange={this.SearchHandler} id="SearchItem"/>
                             <textarea type='text' name='mylocation' onChange={this.SearchHandler} id="SearchItem"/>
-                            <textarea type='text' name='biography' onChange={this.SearchHandler} id="SearchItem"/>
+                            {
+                                interests.length > 0 && interests.map((interest) => (
+                                  <button className="Intbutt"
+                                    key={interest.id}
+                                    value={interest.id}
+                                    onClick={() => this.InterestSearch(interest.id)}
+                                  >
+                                    {interest.interest}
+                                  </button>
+            ))
+          }
                             <div>
                             <input className="searchradio" type='radio' name='sort' value="date_part" onChange={this.SearchHandler}/>
                                 <label for="Age">Age</label>
                                 <input className="searchradio" type='radio' name='sort' value="mylocation" onChange={this.SearchHandler}/>
                                 <label for="Location">Location</label>
-                                <input className="searchradio" type='radio' name='sort' value="biography" onChange={this.SearchHandler}/>
-                                <label for="Interest">Bio</label>
+                                <input className="searchradio" type='radio' name='sort' value="interest_id" onChange={this.SearchHandler}/>
+                                <label for="Interest">Intrst</label>
                             </div>
                             </div>
                         </div>
@@ -216,6 +181,7 @@ class Search extends React.Component {
                            suggestion => <div className="browseProfcontainer">
                                 <span className="searchSpan">Username: {suggestion.username}</span>
                                 <span className="searchSpan">My Location: {suggestion.mylocation}</span>
+                                <span className="searchSpan">Interests: {suggestion.interest}</span>
                                 <span className="searchSpan">Birthdate: {suggestion.birthdate.split('T')[0]}</span>
                                 <Link to={"/profile/" + suggestion.id} >
                                   <button className="BrowseProfbutt">View Profile</button>

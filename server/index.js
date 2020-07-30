@@ -551,7 +551,7 @@ app.get('/searchage', async (req, res) => {
     const profile = await db.any(dbUserProfiles.searchDate,
       [
         req.query.mylocation,
-        req.query.biography,
+        req.query.interest_id,
         req.query.birthdate,
       ]
       );
@@ -583,7 +583,7 @@ app.get('/searchlocat', async (req, res) => {
     const profile = await db.any(dbUserProfiles.searchLocat,
       [
         req.query.mylocation,
-        req.query.biography,
+        req.query.interest_id,
         req.query.birthdate,
       ]
       );
@@ -614,7 +614,7 @@ app.get('/searchbio', async (req, res) => {
     const profile = await db.any(dbUserProfiles.searchBio,
       [
         req.query.mylocation,
-        req.query.biography,
+        req.query.interest_id,
         req.query.birthdate,
       ]
       );

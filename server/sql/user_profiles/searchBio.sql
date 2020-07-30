@@ -6,25 +6,28 @@ SELECT
     genders.gender,
     sexualities.sexuality,
     users.username,
+    interests.interest,
     users.first_name,
     users.last_name,
     date_part('year', birthdate),
-    user_profiles.biography,
+    user_interests.interest_id,
     user_profiles.mylocation,
-    user_profiles.latitude,
-    user_profiles.longitude,
     user_profiles.birthdate
-FROM (((user_profiles INNER JOIN genders
+FROM (((((user_profiles INNER JOIN genders
     ON user_profiles.gender_id = genders.id)
         INNER JOIN sexualities
             ON user_profiles.sexuality_id = sexualities.id )
             INNER JOIN users
                     ON users.id = user_profiles.user_id)
+                        INNER JOIN user_interests
+                            ON user_interests.user_id = user_profiles.user_id)
+                                INNER JOIN interests
+                                    ON interests.id = user_interests.interest_id)
 WHERE 
     user_profiles.mylocation ~* $1
 AND  
-    user_profiles.biography ~* $2
+    user_interests.interest_id = $2
 AND
 	'2020' - date_part('year', birthdate) >= $3
 ORDER BY
-	user_profiles.biography DESC;
+	user_interests.interest_id DESC;

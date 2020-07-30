@@ -1,1 +1,1 @@
-SELECT id, interest FROM interests;
+SELECT id, interest FROM interests LIMIT 10;
